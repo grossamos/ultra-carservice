@@ -1,6 +1,6 @@
 package com.nttdata.carservice.controller;
 
-import com.nttdata.carservice.datastorage.AutomobileDataStorage;
+import com.nttdata.carservice.AutomobileDataStorage;
 import com.nttdata.carservice.Automobile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

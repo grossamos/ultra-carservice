@@ -1,4 +1,4 @@
-package com.nttdata.carservice.datastorage;
+package com.nttdata.carservice;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -89,5 +89,6 @@ public class AutomobileDataStorage {
 
     public static void clearM_allAutomobiles(){
         m_allAutomobiles = new ArrayList<>();
+        pushAutomobilesToFile();
     }
 }
