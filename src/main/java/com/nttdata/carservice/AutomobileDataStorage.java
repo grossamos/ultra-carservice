@@ -70,6 +70,7 @@ public class AutomobileDataStorage {
 
     static public void removeAutomobile(int index){
         m_allAutomobiles.remove(index);
+        Automobile.m_maxIndex--;
         pushAutomobilesToFile();
     }
 

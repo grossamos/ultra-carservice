@@ -8,7 +8,7 @@
 A CRUD based REST API, that allows you to manage an Inventory of cars, with options to list, create, update and delete entrys. 
 The Project utilizes the Spring Boot framework in order to manage it's API. **Unlike many similar APIs, it retains it's entrys even after a restart!**
 ## Requirements
-- JVM and JRE running on Java 14 (or higher)
+- JVM and JRE running on Java 11 (or higher)
 - Maven
 ## Installation
 - After cloning the git repo into your local file system first use Maven to download all the nessicary dependencys and build the project
