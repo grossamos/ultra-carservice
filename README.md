@@ -1,4 +1,9 @@
 # Ultra CarService 
+## Contents
+- [Overview](#Overview)
+- [Requirements](#Requirements)
+- [Installation](#Installation)
+- [Basic Functionality](#Basic Functionality)
 ## Overview
 A CRUD based REST API, that allows you to manage an Inventory of cars, with options to list, create, update and delete entrys. 
 The Project utilizes the Spring Boot framework in order to manage it's API. **Unlike many similar APIs, it retains it's entrys even after a restart!**
