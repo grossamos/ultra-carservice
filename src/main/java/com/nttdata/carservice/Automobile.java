@@ -27,7 +27,11 @@ public class Automobile{
     }
 
     public void generateId(){
-        this.m_id = m_index * 10000 + ((m_name.hashCode() ^ m_model.hashCode()) % 1000);
+        int new_id = (m_name.hashCode() ^ m_model.hashCode()) % 10000;
+        while (!AutomobileDataStorage.checkForInvalidID(new_id)){
+            new_id++;
+        }
+        this.m_id = new_id;
     }
 
     public String getM_model() {
