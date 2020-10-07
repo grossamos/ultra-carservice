@@ -58,11 +58,18 @@ public class AutomobileDataStorage {
     }
 
     static public int getIndexFromId(int id){
-        return Objects.requireNonNull(getAutomobileFromID(id)).getM_index();
+        int counter = 0;
+        for (Automobile curAutomobile: m_allAutomobiles){
+            if (id == curAutomobile.getM_id()){
+                return counter;
+            }
+            counter++;
+        }
+        return -1;
     }
 
     static public void addAutomobile(Automobile someAutomobile){
-        someAutomobile.setM_index(m_allAutomobiles.size());
+        someAutomobile.generateId();
         Automobile.m_maxIndex++;
         m_allAutomobiles.add(someAutomobile);
         pushAutomobilesToFile();
@@ -74,9 +81,11 @@ public class AutomobileDataStorage {
         pushAutomobilesToFile();
     }
 
-    static public void changeAutomobile(int index, Automobile changedAutomobile){
-        m_allAutomobiles.remove(index);
-        m_allAutomobiles.add(index, changedAutomobile);
+    static public void changeAutomobile(int id, Automobile changesAutomobile){
+        Automobile oldAutomobile = getAutomobileFromID(id);
+        Automobile newAutomobile = Automobile.updateAutomobileWithTemplate(oldAutomobile, changesAutomobile);
+        removeAutomobile(getIndexFromId(id));
+        addAutomobile(newAutomobile);
         pushAutomobilesToFile();
     }
 

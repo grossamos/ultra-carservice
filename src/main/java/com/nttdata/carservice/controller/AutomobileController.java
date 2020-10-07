@@ -26,22 +26,25 @@ public class AutomobileController {
         return new ResponseEntity<>(AutomobileDataStorage.getM_allAutomobiles(), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/create-car", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> createAutomobile(@RequestBody Automobile automobile) {
-        AutomobileDataStorage.addAutomobile(automobile);
-        return new ResponseEntity<>("Added: " + automobile.getM_id(), HttpStatus.CREATED);
-    }
-
-    @PostMapping(value = "/update-car", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateAutomobile(@RequestBody Automobile automobile,
+    @PutMapping(value = "/update-car", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateAutomobile(@RequestBody String automobileJson,
                                                    @RequestParam(value = "id", defaultValue = "0") int id) {
         if (id == 0 || AutomobileDataStorage.checkForInvalidID(id)) {
             return incorrectParameterResponse();
         }
 
-        AutomobileDataStorage.changeAutomobile(AutomobileDataStorage.getIndexFromId(id), automobile);
-        return new ResponseEntity<>("Updated: " + automobile.getM_id(), HttpStatus.OK);
+        Automobile newAutomobile = Automobile.jsonToAutomobile(automobileJson);
 
+        AutomobileDataStorage.changeAutomobile(id, newAutomobile);
+        return new ResponseEntity<>("Updated: " + id, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/create-car", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateAutomobileNew(@RequestBody String automobileJSON) {
+        Automobile newAutomobile = Automobile.jsonToAutomobile(automobileJSON);
+        newAutomobile.generateId();
+        AutomobileDataStorage.addAutomobile(newAutomobile);
+        return new ResponseEntity<>("Created: " + newAutomobile.getM_id(), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete-car")
