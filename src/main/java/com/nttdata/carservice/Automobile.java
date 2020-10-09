@@ -2,7 +2,11 @@ package com.nttdata.carservice;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
+
 public class Automobile{
+    //TODO replace fields with ArrayList or hashMap ("names" as keys)
+    // 1. implement changes in jsonToAutomobile() function ~ still take same array, but set
 
     @JsonIgnore
     public static int m_maxIndex = 0;
@@ -10,6 +14,7 @@ public class Automobile{
     private int m_id = 0;
     private String m_name;
     private String m_model;
+    private ArrayList<String> m_automobileAttributes;
 
 
     public Automobile(){
@@ -29,23 +34,23 @@ public class Automobile{
         return m_id;
     }
 
-    public void generateId(){
+    public void generateId(AutomobileDataStorage automobileDataStorage){
         if (m_id != 0)
             return;
 
         int new_id;
         int id_size = 10000;
 
-        if (m_name == null && m_model == null)
+        if (this.getM_name() == null && this.getM_model() == null)
             new_id = 1;
-        else if (m_name == null)
-            new_id = m_model.hashCode() % id_size;
-        else if (m_model == null)
-            new_id = m_name.hashCode() % id_size;
+        else if (this.getM_name() == null)
+            new_id = this.getM_model().hashCode() % id_size;
+        else if (this.getM_model() == null)
+            new_id = this.getM_name().hashCode() % id_size;
         else
-            new_id = (m_name.hashCode() ^ m_model.hashCode()) % 10000;
+            new_id = (this.getM_name().hashCode() ^ this.getM_model().hashCode()) % 10000;
 
-        while (!AutomobileDataStorage.checkForInvalidID(new_id)){
+        while (!automobileDataStorage.checkForInvalidID(new_id)){
             new_id++;
         }
         this.m_id = new_id;

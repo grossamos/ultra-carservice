@@ -2,22 +2,30 @@ package com.nttdata.carservice;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.nttdata.carservice.Automobile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
+
 public class AutomobileDataStorage {
-    static private ArrayList<Automobile> m_allAutomobiles = new ArrayList<>();
-    static private final File m_automobilesFile = new File("./src/data/automobiles.json");
+    private ArrayList<Automobile> m_allAutomobiles = new ArrayList<>();
+    private final File m_automobilesFile;
     static private final Gson m_gson = new Gson();
 
-    static public void getAutomobilesFromFile(){
+
+    public AutomobileDataStorage(ArrayList<Automobile> allAutomobiles, String pathToSave){
+        this.m_allAutomobiles = allAutomobiles;
+        this.m_automobilesFile = new File(pathToSave);
+    }
+
+    public void getAutomobilesFromFile(){
         try {
 
             Scanner scanner = new Scanner(m_automobilesFile);
@@ -34,7 +42,7 @@ public class AutomobileDataStorage {
         }
     }
 
-    static public void pushAutomobilesToFile(){
+    public void pushAutomobilesToFile(){
         try {
             FileWriter jsonWriter = new FileWriter(m_automobilesFile.getPath());
             jsonWriter.write(m_gson.toJson(m_allAutomobiles));
@@ -44,11 +52,11 @@ public class AutomobileDataStorage {
         }
     }
 
-    static public Automobile getAutomobileFromIndex(int index){
+    public Automobile getAutomobileFromIndex(int index){
         return m_allAutomobiles.get(index);
     }
 
-    static public  Automobile getAutomobileFromID(int id){
+    public  Automobile getAutomobileFromID(int id){
         for (Automobile potentialFind : m_allAutomobiles){
             if (potentialFind.getM_id() == id) {
                 return potentialFind;
@@ -57,7 +65,7 @@ public class AutomobileDataStorage {
         return null;
     }
 
-    static public int getIndexFromId(int id){
+    public int getIndexFromId(int id){
         int counter = 0;
         for (Automobile curAutomobile: m_allAutomobiles){
             if (id == curAutomobile.getM_id()){
@@ -68,20 +76,20 @@ public class AutomobileDataStorage {
         return -1;
     }
 
-    static public void addAutomobile(Automobile someAutomobile){
-        someAutomobile.generateId();
+    public void addAutomobile(Automobile someAutomobile){
+        someAutomobile.generateId(this);
         Automobile.m_maxIndex++;
         m_allAutomobiles.add(someAutomobile);
         pushAutomobilesToFile();
     }
 
-    static public void removeAutomobile(int index){
+    public void removeAutomobile(int index){
         m_allAutomobiles.remove(index);
         Automobile.m_maxIndex--;
         pushAutomobilesToFile();
     }
 
-    static public void changeAutomobile(int id, Automobile changesAutomobile){
+    public void changeAutomobile(int id, Automobile changesAutomobile){
         Automobile oldAutomobile = getAutomobileFromID(id);
         Automobile newAutomobile = Automobile.updateAutomobileWithTemplate(oldAutomobile, changesAutomobile);
         removeAutomobile(getIndexFromId(id));
@@ -89,15 +97,15 @@ public class AutomobileDataStorage {
         pushAutomobilesToFile();
     }
 
-    static public boolean checkForInvalidID(int id){
+    public boolean checkForInvalidID(int id){
         return getAutomobileFromID(id) == null;
     }
 
-    public static ArrayList<Automobile> getM_allAutomobiles() {
+    public ArrayList<Automobile> getM_allAutomobiles() {
         return m_allAutomobiles;
     }
 
-    public static void clearM_allAutomobiles(){
+    public void clearM_allAutomobiles(){
         m_allAutomobiles = new ArrayList<>();
         pushAutomobilesToFile();
     }
