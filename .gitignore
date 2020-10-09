@@ -4,7 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 CarService.iml
-src/test
 src/data/automobiles.json
 
 ### Mvn ###
