@@ -5,14 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashMap;
 
 public class Automobile{
-    //TODO replace fields with ArrayList or hashMap ("names" as keys)
-    // 1. implement changes in jsonToAutomobile() function ~ still take same array, but set
 
     @JsonIgnore
     public static int m_maxIndex = 0;
 
     private int m_id = 0;
-    private HashMap<String, String> m_automobileAttributes = new HashMap<>();
+    private final HashMap<String, String> m_automobileAttributes = new HashMap<>();
 
 
     public int getM_id() {
@@ -59,17 +57,8 @@ public class Automobile{
         return m_automobileAttributes.get("name");
     }
 
-    public void setM_name(String m_name) {
-        this.m_automobileAttributes.put("name", m_name);
-    }
-
     @JsonIgnore
     public String getM_model() {
         return m_automobileAttributes.get("model");
     }
-
-    public void setM_model(String m_model) {
-        this.m_automobileAttributes.put("name", m_model);
-    }
-
 }

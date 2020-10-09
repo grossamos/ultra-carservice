@@ -2,15 +2,11 @@ package com.nttdata.carservice;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -82,7 +78,7 @@ public class AutomobileDataStorage {
     }
 
     public void clearM_allAutomobiles(){
-        m_allAutomobiles = new HashMap<Integer, Automobile>();
+        m_allAutomobiles = new HashMap<>();
         pushAutomobilesToFile();
     }
 }
