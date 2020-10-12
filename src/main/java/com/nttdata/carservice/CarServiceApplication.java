@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.HashMap;
 
 @SpringBootApplication
@@ -12,7 +12,7 @@ public class CarServiceApplication {
 
 	@Bean
 	AutomobileDataStorage automobileDataStorage(){
-		return new AutomobileDataStorage(new HashMap<Integer, Automobile>(), "./src/main/resources/static/automobiles.json");
+		return new AutomobileDataStorage(new HashMap<Integer, Automobile>(), new File("./src/main/resources/static/automobiles.json"));
 	}
 
 	public static void main(String[] args) {
