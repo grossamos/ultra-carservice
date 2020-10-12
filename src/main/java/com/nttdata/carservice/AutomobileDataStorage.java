@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,15 +23,12 @@ public class AutomobileDataStorage {
 
     public void getAutomobilesFromFile(){
         try {
-            m_automobilesFile.createNewFile();
             Scanner scanner = new Scanner(m_automobilesFile);
             StringBuilder automobilesAsJSON = new StringBuilder();
             while (scanner.hasNextLine())
                 automobilesAsJSON.append(scanner.nextLine()).append("\n");
-
-            HashMap<Integer, Automobile> automobileArrayList = m_gson.fromJson(automobilesAsJSON.toString(), new TypeToken<HashMap<Integer, Automobile>>(){}.getType());
-            Automobile.m_maxIndex = automobileArrayList.size();
-            m_allAutomobiles = automobileArrayList;
+            m_allAutomobiles = m_gson.fromJson(automobilesAsJSON.toString(), new TypeToken<HashMap<Integer, Automobile>>(){}.getType());
+            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,6 +36,8 @@ public class AutomobileDataStorage {
 
     public void pushAutomobilesToFile(){
         try {
+            //noinspection ResultOfMethodCallIgnored
+            m_automobilesFile.createNewFile();
             FileWriter jsonWriter = new FileWriter(m_automobilesFile.getPath());
             jsonWriter.write(m_gson.toJson(m_allAutomobiles));
             jsonWriter.close();
@@ -76,8 +74,12 @@ public class AutomobileDataStorage {
         return m_allAutomobiles;
     }
 
+    public Automobile getAutomobileFromID(int id){
+        return m_allAutomobiles.get(id);
+    }
+
     public void clearM_allAutomobiles(){
-        m_allAutomobiles = new HashMap<>();
+        m_allAutomobiles.clear();
         pushAutomobilesToFile();
     }
 }
