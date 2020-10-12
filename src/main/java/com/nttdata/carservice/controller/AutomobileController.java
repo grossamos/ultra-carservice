@@ -8,14 +8,19 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.logging.Logger;
+
 
 @RestController
 @RequestMapping("/ultra-api")
 public class AutomobileController {
 
+    //TODO: change input from Automobile to Hashmap (more intuitive) without Instantiation from new (to stay cool with DI)
+
     @Autowired
     private final AutomobileDataStorage m_automobileDataStorage;
+
+    private static final Logger logger = Logger.getLogger(AutomobileController.class.getName());
 
 
     @Autowired
@@ -27,13 +32,16 @@ public class AutomobileController {
     @RequestMapping(value = "/read-single")
     @GetMapping
     public ResponseEntity<?> readSingleAutomobile(@RequestParam(value = "id", defaultValue = "0") int id) {
-        if (m_automobileDataStorage.checkForInvalidID(id))
+        if (m_automobileDataStorage.checkForInvalidID(id)){
             return incorrectParameterResponse();
-        return new ResponseEntity<>(m_automobileDataStorage.getM_allAutomobiles().get(id), HttpStatus.OK);
+        }
+        logger.info("Retrieving info from: ID=" + id);
+        return new ResponseEntity<>(m_automobileDataStorage.getAutomobileFromID(id), HttpStatus.OK);
     }
 
     @GetMapping(value = "/read-all")
     public ResponseEntity<?> readAllAutomobile() {
+        logger.info("Retrieving info from: ID=ALL");
         return new ResponseEntity<>(m_automobileDataStorage.getM_allAutomobiles(), HttpStatus.OK);
     }
 
@@ -43,15 +51,15 @@ public class AutomobileController {
         if (id == 0 || m_automobileDataStorage.checkForInvalidID(id)) {
             return incorrectParameterResponse();
         }
+        logger.info("Updating info from: ID=" + id);
         m_automobileDataStorage.changeAutomobile(id, automobileJson);
         return new ResponseEntity<>("Updated: " + id, HttpStatus.OK);
     }
 
     @PostMapping(value = "/create-car", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createAutomobile(@RequestBody Automobile automobileJSON) {
-//        Automobile newAutomobile = Automobile.jsonToAutomobile(automobileJSON);
-//        newAutomobile.generateId(m_automobileDataStorage);
         m_automobileDataStorage.addAutomobile(automobileJSON);
+        logger.info("Creating Automobile at: ID=" + automobileJSON.getM_id());
         return new ResponseEntity<>("Created: " + automobileJSON.getM_id(), HttpStatus.OK);
     }
 
@@ -61,16 +69,19 @@ public class AutomobileController {
             return incorrectParameterResponse();
         }
         m_automobileDataStorage.removeAutomobile(id);
+        logger.info("Deleted Entry: ID=" + id);
         return new ResponseEntity<>("Deleted: " + id, HttpStatus.NO_CONTENT);
     }
 
     public static ResponseEntity<String> incorrectParameterResponse() {
+        logger.warning("OOps, wrong parameter");
         return new ResponseEntity<>("<div class=\"tenor-gif-embed\" data-postid=\"4649061\" data-share-method=\"host\" data-width=\"100%\" data-aspect-ratio=\"1.8308823529411764\"><a href=\"https://tenor.com/view/hells-kitchen-gordon-ramsay-you-fucked-up-you-messed-up-gif-4649061\">You Fucked Up GIF</a> from <a href=\"https://tenor.com/search/hellskitchen-gifs\">Hellskitchen GIFs</a></div><script type=\"text/javascript\" async src=\"https://tenor.com/embed.js\"></script>", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/reset")
     public ResponseEntity<?> resetAllAutomobiles(){
         m_automobileDataStorage.clearM_allAutomobiles();
+        logger.info("Reset all");
         return new ResponseEntity<>(m_automobileDataStorage.getM_allAutomobiles(), HttpStatus.OK);
     }
 
