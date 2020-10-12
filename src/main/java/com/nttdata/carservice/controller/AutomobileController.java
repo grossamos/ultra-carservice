@@ -82,7 +82,10 @@ public class AutomobileController {
     public ResponseEntity<?> resetAllAutomobiles(){
         m_automobileDataStorage.clearM_allAutomobiles();
         logger.info("Reset all");
-        return new ResponseEntity<>(m_automobileDataStorage.getM_allAutomobiles(), HttpStatus.OK);
+        return new ResponseEntity<>("Empty Database", HttpStatus.NO_CONTENT);
     }
 
+    public static Logger getLogger() {
+        return logger;
+    }
 }
