@@ -3,13 +3,12 @@ package com.nttdata.carservice.controller;
 import com.nttdata.carservice.Automobile;
 import com.nttdata.carservice.AutomobileDataStorage;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.Nested;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,74 +17,78 @@ class AutomobileControllerTest {
 
     static AutomobileController automobileController;
     static AutomobileDataStorage automobileDataStorage;
-    private static HashMap<Integer, Automobile> mockArray;
 
     @BeforeAll
     static void setAutomobileController(){
-        mockArray = new HashMap<Integer, Automobile>();
-        Automobile testAuto = new Automobile();
-        mockArray.put(testAuto.getM_id(), testAuto);
-        mockArray.get(0).setValue("name", "Bob");
-
+        //initialize Controller and Mock Database
         automobileDataStorage = Mockito.mock(AutomobileDataStorage.class);
-        Mockito.when(automobileDataStorage.getM_allAutomobiles()).thenReturn(mockArray);
-//        Mockito.when(automobileDataStorage.getAutomobileFromID(Mockito.anyInt())).thenAnswer();
         automobileController = new AutomobileController(automobileDataStorage);
+
+        //disable Logger
+        AutomobileController.getLogger().setLevel(Level.OFF);
     }
 
-    @org.junit.jupiter.api.Nested
-    @DisplayName("Test of Read functions")
-    public class read{
-        @Test
-        void readAllAutomobile() {
-            ResponseEntity<?> responseEntity = new ResponseEntity<>(mockArray, HttpStatus.OK);
-            assertEquals(new ResponseEntity<>(automobileDataStorage.getM_allAutomobiles(), HttpStatus.OK), responseEntity);
-        }
-//        @Test
-//        void readSingleAutomobile() {
-//            for (int id : getTrueIdsList()){
-//                assertEquals(new ResponseEntity<>(automobileDataStorage.getM_allAutomobiles().get(id), HttpStatus.OK), automobileController.readSingleAutomobile(id));
-//            }
-//            for (int id : getFalseIdsList(10)){
-//                assertEquals(AutomobileController.incorrectParameterResponse(), automobileController.readSingleAutomobile(id));
-//            }
-//        }
+    @Test
+    void readSingleAutomobile() {
+        //check ID validity checker
+        setMockIdCheckToTrue();
+        assertEquals(AutomobileController.incorrectParameterResponse(), automobileController.readSingleAutomobile(0));
+
+        //setup Mockito checkForInvalidID to say every ID is valid, and return empty Automobile at getAutomobileFromID
+        Automobile emptyAutomobile = new Automobile();
+        setMockIdCheckToFalse();
+        Mockito.when(automobileDataStorage.getAutomobileFromID(Mockito.anyInt())).thenReturn(emptyAutomobile);
+
+        //test if Controller returns empty Automobile as Response code, with correct code
+        assertEquals(new ResponseEntity<>(emptyAutomobile, HttpStatus.OK), automobileController.readSingleAutomobile(0));
+    }
+
+    @Test
+    void readAllAutomobile() {
+        //setup mockito to return empty Hashmap
+        HashMap<Integer, Automobile> emptyMap = new HashMap<>();
+        Mockito.when(automobileDataStorage.getM_allAutomobiles()).thenReturn(emptyMap);
+
+        //check if Map is returned with correct code
+        assertEquals(new ResponseEntity<>(emptyMap, HttpStatus.OK), automobileController.readAllAutomobile());
     }
 
     @Test
     void updateAutomobile() {
+        //check ID validity checker
+        setMockIdCheckToTrue();
+        assertEquals(AutomobileController.incorrectParameterResponse(), automobileController.updateAutomobile(new Automobile(), 99));
+
+        //check Response code
+        setMockIdCheckToFalse();
+        assertEquals(HttpStatus.OK, automobileController.updateAutomobile(new Automobile(), 99).getStatusCode());
+    }
+
+    @Test
+    void createAutomobile() {
+        assertEquals(HttpStatus.OK, automobileController.createAutomobile(new Automobile()).getStatusCode());
     }
 
     @Test
     void deleteAutomobile() {
-    }
+        //check ID validity checker
+        setMockIdCheckToTrue();
+        assertEquals(AutomobileController.incorrectParameterResponse(), automobileController.deleteAutomobile(99));
 
-    @Test
-    void incorrectParameterResponse() {
+        //check Response code
+        setMockIdCheckToFalse();
+        assertEquals(HttpStatus.NO_CONTENT, automobileController.deleteAutomobile(99).getStatusCode());
     }
 
     @Test
     void resetAllAutomobiles() {
+        assertEquals(HttpStatus.NO_CONTENT, automobileController.resetAllAutomobiles().getStatusCode());
     }
 
-//    ArrayList<Integer> getTrueIdsList(){
-//        ArrayList<Integer> allIds = new ArrayList<>();
-//        for (Automobile automobile: automobileDataStorage.getM_allAutomobiles()) {
-//            allIds.add(automobile.getM_id());
-//        }
-//        return allIds;
-//    }
-//    ArrayList<Integer> getFalseIdsList(int amountOfIds){
-//        ArrayList<Integer> allIds = new ArrayList<>();
-//        int counter = 0;
-//        int possibleId = 0;
-//        while (counter < amountOfIds){
-//            if (automobileDataStorage.checkForInvalidID(possibleId)) {
-//                allIds.add(possibleId);
-//                counter++;
-//            }
-//            possibleId++;
-//        }
-//        return allIds;
-//    }
+    void setMockIdCheckToFalse(){
+        Mockito.when(automobileDataStorage.checkForInvalidID(Mockito.anyInt())).thenReturn(false);
+    }
+    void setMockIdCheckToTrue(){
+        Mockito.when(automobileDataStorage.checkForInvalidID(Mockito.anyInt())).thenReturn(true);
+    }
 }
