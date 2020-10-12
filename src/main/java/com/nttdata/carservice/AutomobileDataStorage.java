@@ -24,7 +24,7 @@ public class AutomobileDataStorage {
 
     public void getAutomobilesFromFile(){
         try {
-
+            m_automobilesFile.createNewFile();
             Scanner scanner = new Scanner(m_automobilesFile);
             StringBuilder automobilesAsJSON = new StringBuilder();
             while (scanner.hasNextLine())
@@ -33,8 +33,7 @@ public class AutomobileDataStorage {
             HashMap<Integer, Automobile> automobileArrayList = m_gson.fromJson(automobilesAsJSON.toString(), new TypeToken<HashMap<Integer, Automobile>>(){}.getType());
             Automobile.m_maxIndex = automobileArrayList.size();
             m_allAutomobiles = automobileArrayList;
-
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
