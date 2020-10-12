@@ -17,9 +17,9 @@ public class AutomobileDataStorage {
     static private final Gson m_gson = new Gson();
 
 
-    public AutomobileDataStorage(HashMap<Integer, Automobile> allAutomobiles, String pathToSave){
+    public AutomobileDataStorage(HashMap<Integer, Automobile> allAutomobiles, File fileToSave){
         this.m_allAutomobiles = allAutomobiles;
-        this.m_automobilesFile = new File(pathToSave);
+        this.m_automobilesFile = fileToSave;
     }
 
     public void getAutomobilesFromFile(){
