@@ -51,11 +51,12 @@ class AutomobileTest {
         assertEquals(automobileEmpty.getM_name(), testInput);
 
         int cachedSize = automobileEmpty.getM_automobileAttributes().size();
-        for (int i = 0; i < 200; i++) {
-            automobileEmpty.setValue(String.valueOf(i), String.valueOf(i));
-            assertEquals(cachedSize + 1, automobileEmpty.getM_automobileAttributes().size());
-        }
+
+        automobileEmpty.setValue("Some key", "Some Value");
+        assertEquals(cachedSize + 1, automobileEmpty.getM_automobileAttributes().size());
     }
+
+
 
     @Test
     void getValue() {

@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class AutomobileControllerTest {
+public class AutomobileControllerTest {
 
     static AutomobileController automobileController;
     static AutomobileDataStorage automobileDataStorage = Mockito.mock(AutomobileDataStorage.class);
