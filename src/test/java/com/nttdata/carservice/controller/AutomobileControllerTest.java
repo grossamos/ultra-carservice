@@ -3,7 +3,6 @@ package com.nttdata.carservice.controller;
 import com.nttdata.carservice.Automobile;
 import com.nttdata.carservice.AutomobileDataStorage;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 
@@ -15,12 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AutomobileControllerTest {
 
-    @Mock
     static AutomobileController automobileController;
-
-    @Mock
-    static AutomobileDataStorage automobileDataStorage;
-    static Automobile emptyAutomobile;
+    static AutomobileDataStorage automobileDataStorage = Mockito.mock(AutomobileDataStorage.class);
+    static Automobile emptyAutomobile = Mockito.mock(Automobile.class);
 
     @BeforeAll
     static void setAutomobileController(){
