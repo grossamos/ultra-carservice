@@ -2,6 +2,7 @@ package com.nttdata.carservice;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
-
+@Service
 public class AutomobileDataStorage {
     private HashMap<Integer, Automobile> m_allAutomobiles;
     private final File m_automobilesFile;

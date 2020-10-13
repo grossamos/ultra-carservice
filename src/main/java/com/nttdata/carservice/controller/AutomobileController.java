@@ -17,7 +17,6 @@ public class AutomobileController {
 
     //TODO: change input from Automobile to Hashmap (more intuitive) without Instantiation from new (to stay cool with DI)
 
-    @Autowired
     private final AutomobileDataStorage m_automobileDataStorage;
 
     private static final Logger logger = Logger.getLogger(AutomobileController.class.getName());
