@@ -60,7 +60,6 @@ public class AutomobileDataStorage {
 
     public void pushAutomobilesToFile(){
         try {
-            //noinspection ResultOfMethodCallIgnored
             m_automobilesFile.createNewFile();
             FileWriter jsonWriter = new FileWriter(m_automobilesFile.getPath());
             jsonWriter.write(m_gson.toJson(m_allAutomobiles));
