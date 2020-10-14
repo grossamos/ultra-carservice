@@ -42,6 +42,7 @@ public class AutomobileDataStorage {
 
     public void getAutomobilesFromFile(){
         try {
+            m_automobilesFile.exists();
             Scanner scanner = new Scanner(m_automobilesFile);
             StringBuilder automobilesAsJSON = new StringBuilder();
             while (scanner.hasNextLine())
