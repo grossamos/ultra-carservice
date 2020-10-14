@@ -73,7 +73,7 @@ public class AutomobileDataStorage {
      * Adds an Automobile to storage.
      *
      * Adds it to the Hashmap and generates a new unique id. <u>Only to be used for initial adding</u>
-     * @param someAutomobile
+     * @param someAutomobile Automobile entry to add
      */
 
     public void addAutomobile(Automobile someAutomobile){
@@ -96,8 +96,8 @@ public class AutomobileDataStorage {
     /**
      * Updater for entries.
      *
-     * @param id
-     * @param changesAutomobile
+     * @param id ID of object, that needs to be updated
+     * @param changesAutomobile Object containing changes
      */
 
     public void changeAutomobile(int id, Automobile changesAutomobile){
@@ -111,6 +111,7 @@ public class AutomobileDataStorage {
      * Checks if you would get a valid Object if requesting ID.
      *
      * @param id ID to check
+     * @return bool if ID is Invalid or not
      */
 
     public boolean checkForInvalidID(int id){

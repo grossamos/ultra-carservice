@@ -13,6 +13,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
 
+/**
+ *
+ * Configuration of Swaggar docs.
+ *
+ * Final generated documentation can be found  <a href="http://localhost:8080/swagger-ui/#/">here</a>
+ * @author "Amos Gross"
+ * @version 0.0.1
+ */
 
 @Configuration
 @EnableSwagger2
@@ -20,20 +28,21 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-        .useDefaultResponseMessages(false)
-        .select()
-        .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-        .paths(PathSelectors.ant("/ultra-api/**"))
-        .build()
-        .apiInfo(new ApiInfo(
-                "Ultra Car service",
-                "A service to ultra-manage your cars",
-                "0.1",
-                "example.org",
-                new Contact("Amos", "mysite.com", "email@myemail.com"),
-                "No License",
-                "no.url.com",
-                Collections.emptyList()
-        ));
+                .useDefaultResponseMessages(false)
+                .select()
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .paths(PathSelectors.ant("/ultra-api/**"))
+                .build()
+                .apiInfo(new ApiInfo(
+                        "Ultra Car service",
+                        "A service to ultra-manage your cars",
+                        "0.1",
+                        "example.org",
+                        new Contact("Amos", "mysite.com", "email@myemail.com"),
+                        "No License",
+                        "no.url.com",
+                        Collections.emptyList()
+                ));
     }
 }
+

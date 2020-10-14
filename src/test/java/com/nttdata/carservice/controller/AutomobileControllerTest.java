@@ -31,7 +31,7 @@ public class AutomobileControllerTest {
     void readSingleAutomobile() {
         //check ID validity checker
         setMockIdCheckToTrue();
-        assertEquals(AutomobileController.incorrectParameterResponse(), automobileController.readSingleAutomobile(0));
+        assertEquals(HttpStatus.BAD_REQUEST, automobileController.readSingleAutomobile(0).getStatusCode());
 
         //setup Mockito checkForInvalidID to say every ID is valid, and return empty Automobile at getAutomobileFromID
         setMockIdCheckToFalse();
