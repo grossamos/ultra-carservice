@@ -28,6 +28,14 @@ public class Automobile{
         return m_id;
     }
 
+    /**
+     * Generates an Automobiles ID.
+     *
+     * Creates a hash from <b>name</b> and <b>model</b> fields in Hashmap (if present) and checks if it's unique.
+     * If not we just add 1 until it is.
+     * @param automobileDataStorage Storage Class in which the ID needs to be unique
+     */
+
     public void generateId(AutomobileDataStorage automobileDataStorage){
         if (m_id != 0)
             return;
