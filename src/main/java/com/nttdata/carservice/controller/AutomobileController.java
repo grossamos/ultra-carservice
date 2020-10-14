@@ -2,9 +2,7 @@ package com.nttdata.carservice.controller;
 
 import com.nttdata.carservice.AutomobileDataStorage;
 import com.nttdata.carservice.Automobile;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -101,8 +99,12 @@ public class AutomobileController {
     )
     @PutMapping(value = "/update-car", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateAutomobile(
+            @ApiParam(value = "Info about Automobile",
+            required = true,
+            example = "{\n \"m_automobileAttributes\": {\n \"name\": \"Bob's car\",\n    \"model\": \"F150\"\n  }\n}")
             @RequestBody Automobile automobileJson,
-           @ApiParam(value = "ID of your car (returned at creation)", required = true)
+           @ApiParam(value = "ID of your car (returned at creation)",
+                   required = true)
            @RequestParam(value = "id", defaultValue = "0") int id) {
         if (id == 0 || m_automobileDataStorage.checkForInvalidID(id)) {
             return incorrectParameterResponse();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <Properties>
+        <Property name="LOG_PATTERN">[%level] -- [%d{HH:mm:ss}] -- %mgs %n</Property>
+        <Property name="APP_LOG_ROOT">./logs</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <Patternlayout pattern="[%level] -- [%d{HH:mm:ss}] -- %mgs %n"/>
+        </Console>
+        <RollingFile name="logFile"
+                     fileName="./logs/UltraCarService.log"
+                     filePattern="./logs/UltraCarService.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="1"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="logFile"/>
+        </Root>
+    </Loggers>
+</configuration>
