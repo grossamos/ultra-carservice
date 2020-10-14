@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
-@Service
+
 public class AutomobileDataStorage {
     private HashMap<Integer, Automobile> m_allAutomobiles;
     private final File m_automobilesFile;

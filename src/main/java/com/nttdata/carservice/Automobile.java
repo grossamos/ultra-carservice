@@ -1,15 +1,21 @@
 package com.nttdata.carservice;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.HashMap;
 
+@ApiModel(description = "The class containing info about each car")
 public class Automobile{
 
     @JsonIgnore
     public static int m_maxIndex = 0;
 
+    @ApiModelProperty(notes = "Unique id for every car")
     private int m_id = 0;
+
+    @ApiModelProperty(notes = "Hashmap containing properties of that specific car")
     private final HashMap<String, String> m_automobileAttributes = new HashMap<>();
 
 
