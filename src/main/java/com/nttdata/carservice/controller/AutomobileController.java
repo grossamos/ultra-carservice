@@ -15,7 +15,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-//Access docs at http://localhost:8080/swagger-ui/#/
+/**
+ * Controller for Ultra-api.
+ *
+ * Handles all Rest calls. For docs call on <a href="http://localhost:8080/swagger-ui/#/">Swagger docs</a> during runtime
+ * @author "Amos Gross"
+ * @version 0.0.1
+ */
 
 @RestController
 @RequestMapping("/ultra-api")
@@ -28,12 +34,25 @@ public class AutomobileController {
 
     private static final Logger logger = Logger.getLogger(AutomobileController.class.getName());
 
+    /**
+     * Constructor for Controller.
+     *
+     * Inject dependency to DataStorage class into Controller.
+     * @param automobileDataStorage injected DataStorage
+     */
 
     @Autowired
     public AutomobileController(AutomobileDataStorage automobileDataStorage){
         this.m_automobileDataStorage = automobileDataStorage;
         m_automobileDataStorage.getAutomobilesFromFile();
     }
+
+    /**
+     * Api call to get a car entry.
+     *
+     * @param id Id of Requested car
+     * @return ResponseEntity with object and HTTP code
+     */
 
     @GetMapping(value = "/read-single")
     @ApiOperation(
@@ -51,6 +70,12 @@ public class AutomobileController {
         return new ResponseEntity<>(m_automobileDataStorage.getAutomobileFromID(id), HttpStatus.OK);
     }
 
+    /**
+     * Api call to get all entries.
+     *
+     * @return ResponseEntity with all objects and HTTP code
+     */
+
     @ApiOperation(
             value = "Get All Automobiles Info",
             notes = "Retrieve all available entries"
@@ -60,6 +85,15 @@ public class AutomobileController {
         logger.info("Retrieving info from: ID=ALL");
         return new ResponseEntity<>(m_automobileDataStorage.getM_allAutomobiles(), HttpStatus.OK);
     }
+
+    /**
+     * Api call to update a single entry.
+     *
+     * Takes changes from two Automobile Objects and merges them. Excluding the id, the newer object's non null fields are always preferred.
+     * @param automobileJson Automobile object, with all non-null parameters being the changes
+     * @param id ID of car that has to be updated
+     * @return ResponseEntity with HTTP code indicating its success or not
+     */
 
     @ApiOperation(
             value = "Update Automobile Info by ID",
@@ -78,6 +112,13 @@ public class AutomobileController {
         return new ResponseEntity<>("Updated: " + id, HttpStatus.OK);
     }
 
+    /**
+     * Api call to add a new entry.
+     *
+     * @param automobileJSON Automobile Object containing info of new
+     * @return Id of the new Entry
+     */
+
     @ApiOperation(
             value = "Create a car entry",
             notes = "Provide a Car Object and add that to the entries"
@@ -88,6 +129,14 @@ public class AutomobileController {
         logger.info("Creating Automobile at: ID=" + automobileJSON.getM_id());
         return new ResponseEntity<>("Created: " + automobileJSON.getM_id(), HttpStatus.OK);
     }
+
+    /**
+     * Api call to delete an entry.
+     *
+     * Takes an ID, checks it's validity and deletes the entry at that point.
+     * @param id Id of the entry that has to be deleted
+     * @return ResponseEntity with HTTP code indicating its success or not
+     */
 
     @ApiOperation(
             value = "Delete a car entry",
@@ -104,10 +153,12 @@ public class AutomobileController {
         return new ResponseEntity<>("Deleted: " + id, HttpStatus.NO_CONTENT);
     }
 
-    public static ResponseEntity<String> incorrectParameterResponse() {
-        logger.warning("OOps, wrong parameter");
-        return new ResponseEntity<>("<div class=\"tenor-gif-embed\" data-postid=\"4649061\" data-share-method=\"host\" data-width=\"100%\" data-aspect-ratio=\"1.8308823529411764\"><a href=\"https://tenor.com/view/hells-kitchen-gordon-ramsay-you-fucked-up-you-messed-up-gif-4649061\">You Fucked Up GIF</a> from <a href=\"https://tenor.com/search/hellskitchen-gifs\">Hellskitchen GIFs</a></div><script type=\"text/javascript\" async src=\"https://tenor.com/embed.js\"></script>", HttpStatus.BAD_REQUEST);
-    }
+    /**
+     * Delete all entries.
+     *
+     * Resets the internal storage back to 0 entries.
+     * @return ResponseEntity with 204 HTTP Response code
+     */
 
     @ApiOperation(
             value = "Reset all entries",
@@ -121,7 +172,18 @@ public class AutomobileController {
         return new ResponseEntity<>("Empty Database", HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Getter for Logger.
+     *
+     * @return Logger that's currently in use.
+     */
+
     public static Logger getLogger() {
         return logger;
+    }
+
+    private static ResponseEntity<String> incorrectParameterResponse() {
+        logger.warning("OOps, wrong parameter");
+        return new ResponseEntity<>("<div class=\"tenor-gif-embed\" data-postid=\"4649061\" data-share-method=\"host\" data-width=\"100%\" data-aspect-ratio=\"1.8308823529411764\"><a href=\"https://tenor.com/view/hells-kitchen-gordon-ramsay-you-fucked-up-you-messed-up-gif-4649061\">You Fucked Up GIF</a> from <a href=\"https://tenor.com/search/hellskitchen-gifs\">Hellskitchen GIFs</a></div><script type=\"text/javascript\" async src=\"https://tenor.com/embed.js\"></script>", HttpStatus.BAD_REQUEST);
     }
 }
