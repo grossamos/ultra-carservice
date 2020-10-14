@@ -49,14 +49,12 @@ public class AutomobileDataStorage {
 
     public void addAutomobile(Automobile someAutomobile){
         someAutomobile.generateId(this);
-        Automobile.m_maxIndex++;
         m_allAutomobiles.put(someAutomobile.getM_id(), someAutomobile);
         pushAutomobilesToFile();
     }
 
     public void removeAutomobile(int id){
         m_allAutomobiles.remove(id);
-        Automobile.m_maxIndex--;
         pushAutomobilesToFile();
     }
 
