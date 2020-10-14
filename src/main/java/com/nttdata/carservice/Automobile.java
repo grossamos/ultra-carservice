@@ -17,7 +17,7 @@ import java.util.HashMap;
 @ApiModel(description = "The class containing info about each car")
 public class Automobile{
 
-    @ApiModelProperty(notes = "Unique id for every car")
+    @ApiModelProperty(notes = "Unique id for every car", hidden = true)
     private int m_id = 0;
 
     @ApiModelProperty(notes = "Hashmap containing properties of that specific car")
