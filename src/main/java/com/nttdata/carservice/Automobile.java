@@ -6,11 +6,16 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.HashMap;
 
+/**
+ * A class for all Automobile entries.
+ *
+ * <p>Stores the information about each of the entries. And handles the ID generation</p>
+ * @author Amos Groß
+ * @version 0.0.1
+ */
+
 @ApiModel(description = "The class containing info about each car")
 public class Automobile{
-
-    @JsonIgnore
-    public static int m_maxIndex = 0;
 
     @ApiModelProperty(notes = "Unique id for every car")
     private int m_id = 0;
