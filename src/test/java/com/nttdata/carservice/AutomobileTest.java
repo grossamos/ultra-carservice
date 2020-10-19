@@ -1,5 +1,7 @@
 package com.nttdata.carservice;
 
+import com.nttdata.carservice.automobile.Automobile;
+import com.nttdata.carservice.automobile.AutomobileDataStorage;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;

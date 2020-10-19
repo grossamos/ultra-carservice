@@ -1,4 +1,4 @@
-package com.nttdata.carservice;
+package com.nttdata.carservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

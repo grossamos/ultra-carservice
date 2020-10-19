@@ -1,5 +1,6 @@
 package com.nttdata.carservice;
 
+import com.nttdata.carservice.automobile.AutomobileDataStorage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

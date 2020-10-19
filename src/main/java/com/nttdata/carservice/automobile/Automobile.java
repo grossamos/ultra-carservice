@@ -1,4 +1,4 @@
-package com.nttdata.carservice;
+package com.nttdata.carservice.automobile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;

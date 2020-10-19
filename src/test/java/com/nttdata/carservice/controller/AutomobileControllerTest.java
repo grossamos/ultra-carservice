@@ -1,7 +1,7 @@
 package com.nttdata.carservice.controller;
 
-import com.nttdata.carservice.Automobile;
-import com.nttdata.carservice.AutomobileDataStorage;
+import com.nttdata.carservice.automobile.Automobile;
+import com.nttdata.carservice.automobile.AutomobileDataStorage;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;

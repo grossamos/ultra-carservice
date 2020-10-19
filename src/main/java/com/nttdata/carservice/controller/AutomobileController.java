@@ -1,7 +1,7 @@
 package com.nttdata.carservice.controller;
 
-import com.nttdata.carservice.AutomobileDataStorage;
-import com.nttdata.carservice.Automobile;
+import com.nttdata.carservice.automobile.AutomobileDataStorage;
+import com.nttdata.carservice.automobile.Automobile;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
