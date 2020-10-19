@@ -108,7 +108,7 @@ public class AutomobileController {
             @ApiParam(value = "Info about Automobile",
             required = true,
             example = "{\n \"m_automobileAttributes\": {\n \"name\": \"Bob's car\",\n    \"model\": \"F150\"\n  }\n}")
-            @RequestBody Automobile automobileJson,
+            @RequestBody() Automobile automobileJson,
            @ApiParam(value = "ID of your car (returned at creation)",
                    required = true)
            @RequestParam(value = "id", defaultValue = "0") int id) {
@@ -116,7 +116,7 @@ public class AutomobileController {
         if (id == 0 || m_automobileDataStorage.checkForInvalidID(id)) {
             return AutomobileErrorHandler.wrongIdError();
         }
-        else if (m_automobileDataStorage.getM_allAutomobiles().isEmpty()){
+        else if (automobileJson.getM_automobileAttributes().isEmpty()){
             return AutomobileErrorHandler.emptyAttributesError();
         }
         m_automobileDataStorage.changeAutomobile(id, automobileJson);
