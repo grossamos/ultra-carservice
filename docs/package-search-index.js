@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.nttdata.carservice"},{"l":"com.nttdata.carservice.controller"}]
