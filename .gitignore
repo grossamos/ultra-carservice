@@ -6,6 +6,7 @@ target/
 CarService.iml
 src/main/resources/static/automobiles.json
 logs/
+docs/
 
 ### Mvn ###
 .mvn
