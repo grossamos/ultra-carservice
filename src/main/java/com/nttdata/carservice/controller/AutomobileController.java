@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 public class AutomobileController {
     //TODO: change input from Automobile to Hashmap (more intuitive) without Instantiation from new (to stay cool with DI)
 
-    @Autowired
     private final AutomobileDataStorage m_automobileDataStorage;
 
     private static final Logger logger = Logger.getLogger(AutomobileController.class.getName());
@@ -106,7 +105,7 @@ public class AutomobileController {
            @ApiParam(value = "ID of your car (returned at creation)",
                    required = true)
            @RequestParam(value = "id", defaultValue = "0") int id) {
-        if (id == 0 || m_automobileDataStorage.checkForInvalidID(id)) {
+        if (id == 0 || m_automobileDataStorage.checkForInvalidID(id) || m_automobileDataStorage.getM_allAutomobiles().isEmpty()) {
             return incorrectParameterResponse();
         }
         logger.info("Updating info from: ID=" + id);
@@ -127,6 +126,9 @@ public class AutomobileController {
     )
     @PostMapping(value = "/create-car", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createAutomobile(@RequestBody Automobile automobileJSON) {
+        if (automobileJSON.getM_automobileAttributes().isEmpty()){
+            return incorrectParameterResponse();
+        }
         m_automobileDataStorage.addAutomobile(automobileJSON);
         logger.info("Creating Automobile at: ID=" + automobileJSON.getM_id());
         return new ResponseEntity<>("Created: " + automobileJSON.getM_id(), HttpStatus.OK);
@@ -146,13 +148,15 @@ public class AutomobileController {
     )
     @ApiResponse(code = 204, message = "Success in deletion")
     @DeleteMapping(value = "/delete-car")
-    public ResponseEntity<String> deleteAutomobile(@RequestParam(value = "id", defaultValue = "0") int id) {
+    public ResponseEntity<String> deleteAutomobile(
+        @ApiParam(value = "ID of your car (returned at creation)", required = true)
+        @RequestParam(value = "id") int id) {
         if (id == 0 || m_automobileDataStorage.checkForInvalidID(id)) {
             return incorrectParameterResponse();
         }
         m_automobileDataStorage.removeAutomobile(id);
         logger.info("Deleted Entry: ID=" + id);
-        return new ResponseEntity<>("Deleted: " + id, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /**
