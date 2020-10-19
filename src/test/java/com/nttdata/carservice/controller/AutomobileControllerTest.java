@@ -2,12 +2,12 @@ package com.nttdata.carservice.controller;
 
 import com.nttdata.carservice.automobile.Automobile;
 import com.nttdata.carservice.automobile.AutomobileDataStorage;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 
 import java.util.HashMap;
-import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +24,7 @@ public class AutomobileControllerTest {
         automobileController = new AutomobileController(automobileDataStorage);
 
         //disable Logger
-        AutomobileController.getLogger().setLevel(Level.OFF);
+        Logger.getRootLogger().removeAllAppenders();
     }
 
     @Test

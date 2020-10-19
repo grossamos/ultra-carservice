@@ -1,5 +1,8 @@
 package com.nttdata.carservice.controller;
 
+import com.nttdata.carservice.config.LogInterceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.nttdata.carservice.automobile.AutomobileDataStorage;
 import com.nttdata.carservice.automobile.Automobile;
 import io.swagger.annotations.*;
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 /**
  * Controller for Ultra-api.
@@ -29,7 +31,7 @@ public class AutomobileController {
 
     private final AutomobileDataStorage m_automobileDataStorage;
 
-    private static final Logger logger = Logger.getLogger(AutomobileController.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(LogInterceptor.class);;
 
     /**
      * Constructor for Controller.
@@ -63,7 +65,6 @@ public class AutomobileController {
         if (m_automobileDataStorage.checkForInvalidID(id)){
             return incorrectParameterResponse();
         }
-        logger.info("Retrieving info from: ID=" + id);
         return new ResponseEntity<>(m_automobileDataStorage.getAutomobileFromID(id), HttpStatus.OK);
     }
 
@@ -79,7 +80,6 @@ public class AutomobileController {
     )
     @GetMapping(value = "/read-all")
     public ResponseEntity<HashMap<Integer, Automobile>> readAllAutomobile() {
-        logger.info("Retrieving info from: ID=ALL");
         return new ResponseEntity<>(m_automobileDataStorage.getM_allAutomobiles(), HttpStatus.OK);
     }
 
@@ -108,7 +108,6 @@ public class AutomobileController {
         if (id == 0 || m_automobileDataStorage.checkForInvalidID(id) || m_automobileDataStorage.getM_allAutomobiles().isEmpty()) {
             return incorrectParameterResponse();
         }
-        logger.info("Updating info from: ID=" + id);
         m_automobileDataStorage.changeAutomobile(id, automobileJson);
         return new ResponseEntity<>("Updated: " + id, HttpStatus.OK);
     }
@@ -130,7 +129,6 @@ public class AutomobileController {
             return incorrectParameterResponse();
         }
         m_automobileDataStorage.addAutomobile(automobileJSON);
-        logger.info("Creating Automobile at: ID=" + automobileJSON.getM_id());
         return new ResponseEntity<>("Created: " + automobileJSON.getM_id(), HttpStatus.OK);
     }
 
@@ -155,7 +153,6 @@ public class AutomobileController {
             return incorrectParameterResponse();
         }
         m_automobileDataStorage.removeAutomobile(id);
-        logger.info("Deleted Entry: ID=" + id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -174,7 +171,6 @@ public class AutomobileController {
     @DeleteMapping(value = "/reset")
     public ResponseEntity<?> resetAllAutomobiles(){
         m_automobileDataStorage.clearM_allAutomobiles();
-        logger.info("Reset all");
         return new ResponseEntity<>("Empty Database", HttpStatus.NO_CONTENT);
     }
 
@@ -189,7 +185,6 @@ public class AutomobileController {
     }
 
     private static ResponseEntity<String> incorrectParameterResponse() {
-        logger.warning("OOps, wrong parameter");
         return new ResponseEntity<>("<div class=\"tenor-gif-embed\" data-postid=\"4649061\" data-share-method=\"host\" data-width=\"100%\" data-aspect-ratio=\"1.8308823529411764\"><a href=\"https://tenor.com/view/hells-kitchen-gordon-ramsay-you-fucked-up-you-messed-up-gif-4649061\">You Fucked Up GIF</a> from <a href=\"https://tenor.com/search/hellskitchen-gifs\">Hellskitchen GIFs</a></div><script type=\"text/javascript\" async src=\"https://tenor.com/embed.js\"></script>", HttpStatus.BAD_REQUEST);
     }
 }
