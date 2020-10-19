@@ -1,6 +1,7 @@
 package com.nttdata.carservice.controller;
 
 import com.nttdata.carservice.config.LogInterceptor;
+import com.nttdata.carservice.errorhandler.AutomobileErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.nttdata.carservice.automobile.AutomobileDataStorage;
@@ -62,8 +63,9 @@ public class AutomobileController {
     public ResponseEntity<?> readSingleAutomobile(
             @ApiParam(value = "ID of your car (returned at creation)", required = true)
             @RequestParam(value = "id") int id) {
+
         if (m_automobileDataStorage.checkForInvalidID(id)){
-            return incorrectParameterResponse();
+            return AutomobileErrorHandler.wrongIdError();
         }
         return new ResponseEntity<>(m_automobileDataStorage.getAutomobileFromID(id), HttpStatus.OK);
     }
@@ -79,8 +81,13 @@ public class AutomobileController {
             notes = "Retrieve all available entries"
     )
     @GetMapping(value = "/read-all")
-    public ResponseEntity<HashMap<Integer, Automobile>> readAllAutomobile() {
-        return new ResponseEntity<>(m_automobileDataStorage.getM_allAutomobiles(), HttpStatus.OK);
+    public ResponseEntity<?> readAllAutomobile() {
+
+        HashMap<Integer, Automobile> allAutomobiles = m_automobileDataStorage.getM_allAutomobiles();
+
+        if (allAutomobiles.isEmpty())
+            return AutomobileErrorHandler.noEntriesError();
+        return new ResponseEntity<>(allAutomobiles, HttpStatus.OK);
     }
 
     /**
@@ -105,8 +112,12 @@ public class AutomobileController {
            @ApiParam(value = "ID of your car (returned at creation)",
                    required = true)
            @RequestParam(value = "id", defaultValue = "0") int id) {
-        if (id == 0 || m_automobileDataStorage.checkForInvalidID(id) || m_automobileDataStorage.getM_allAutomobiles().isEmpty()) {
-            return incorrectParameterResponse();
+
+        if (id == 0 || m_automobileDataStorage.checkForInvalidID(id)) {
+            return AutomobileErrorHandler.wrongIdError();
+        }
+        else if (m_automobileDataStorage.getM_allAutomobiles().isEmpty()){
+            return AutomobileErrorHandler.emptyAttributesError();
         }
         m_automobileDataStorage.changeAutomobile(id, automobileJson);
         return new ResponseEntity<>("Updated: " + id, HttpStatus.OK);
@@ -126,10 +137,10 @@ public class AutomobileController {
     @PostMapping(value = "/create-car", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createAutomobile(@RequestBody Automobile automobileJSON) {
         if (automobileJSON.getM_automobileAttributes().isEmpty()){
-            return incorrectParameterResponse();
+            return AutomobileErrorHandler.emptyAttributesError();
         }
         m_automobileDataStorage.addAutomobile(automobileJSON);
-        return new ResponseEntity<>("Created: " + automobileJSON.getM_id(), HttpStatus.OK);
+        return new ResponseEntity<>("Created: " + automobileJSON.getM_id(), HttpStatus.CREATED);
     }
 
     /**
@@ -150,7 +161,7 @@ public class AutomobileController {
         @ApiParam(value = "ID of your car (returned at creation)", required = true)
         @RequestParam(value = "id") int id) {
         if (id == 0 || m_automobileDataStorage.checkForInvalidID(id)) {
-            return incorrectParameterResponse();
+            return AutomobileErrorHandler.wrongIdError();
         }
         m_automobileDataStorage.removeAutomobile(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -174,17 +185,4 @@ public class AutomobileController {
         return new ResponseEntity<>("Empty Database", HttpStatus.NO_CONTENT);
     }
 
-    /**
-     * Getter for Logger.
-     *
-     * @return Logger that's currently in use.
-     */
-
-    public static Logger getLogger() {
-        return logger;
-    }
-
-    private static ResponseEntity<String> incorrectParameterResponse() {
-        return new ResponseEntity<>("<div class=\"tenor-gif-embed\" data-postid=\"4649061\" data-share-method=\"host\" data-width=\"100%\" data-aspect-ratio=\"1.8308823529411764\"><a href=\"https://tenor.com/view/hells-kitchen-gordon-ramsay-you-fucked-up-you-messed-up-gif-4649061\">You Fucked Up GIF</a> from <a href=\"https://tenor.com/search/hellskitchen-gifs\">Hellskitchen GIFs</a></div><script type=\"text/javascript\" async src=\"https://tenor.com/embed.js\"></script>", HttpStatus.BAD_REQUEST);
-    }
 }
