@@ -1,0 +1,449 @@
+{
+	"info": {
+		"_postman_id": "2fda75da-f862-4a11-92d5-2f87df724021",
+		"name": "test_ulta_carservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Read-all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8ff44d1-59c7-4d05-bee9-bda119bcffd5",
+						"exec": [
+							"pm.test(\"Successful GET (all) request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ultra-api/read-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ultra-api",
+						"read-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Valid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7de3d713-b2c5-496b-ab62-6f7ac570ddaf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ultra-api/create-car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ultra-api",
+						"create-car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Valid Car Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b97810c9-ae52-4fd1-8c72-71ef9e03ad8a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2003\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/ultra-api/update-car?id=8704",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ultra-api",
+						"update-car"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "8704"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Valid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93db4f70-cf42-445b-a229-3faaf6af9e8c",
+						"exec": [
+							"pm.test(\"Returned data contains info from creation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.m_automobileAttributes[\"serial\"]).to.eql(\"33xb92u4\");\r",
+							"});\r",
+							"pm.test(\"Returned data contains info from update\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.m_automobileAttributes[\"year\"]).to.eql(\"2003\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ultra-api/read-single?id=8704",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ultra-api",
+						"read-single"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "8704"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Valid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00532993-7d7f-4849-a78f-d0aba2ebe611",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ultra-api/delete-car?id=8704",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ultra-api",
+						"delete-car"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "8704"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Invalid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cd3c2be7-521f-4b75-908c-2253acbaf759",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"ultra-blob\":\"2020\",\r\n\"no_attributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ultra-api/create-car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ultra-api",
+						"create-car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Invalid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1636ad36-ec64-4746-a49f-cb2ccbbbf8a3",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ultra-api/read-single?id=972999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ultra-api",
+						"read-single"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "972999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Invalid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d58bc4b9-40c6-4eb2-8680-8d0928f453d3",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ultra-api/update-car?id=972999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ultra-api",
+						"update-car"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "972999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Invalid Car Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "779f3a70-56dc-4a21-af3e-4672e8747532",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ultra-api/delete-car?id=972999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ultra-api",
+						"delete-car"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "972999"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
