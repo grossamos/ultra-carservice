@@ -39,6 +39,12 @@ The Project utilizes the Spring Boot framework in order to manage it's API. **Un
 - Unit Tests can be found under ``./src/test/java``
 - Running all Unit tests at once can be achieved by running the Test Suite ``TestAll.java``
 
+## Usage of PostgreSQL in Docker
+- Get PostgreSQL going: ``docker-compose up -d``
+- Entering Postgres
+    - Step 1: ``docker exec -it ultra-database bash``
+    - Step 2: ``psql -U postgres``
+
 ## Usage
 - General Overview:
     - **C**reate entries: POST-Request to ``http://localhost:8080/ultra-api/create-car`` and a JSON Object in the body containing the following items:
