@@ -15,11 +15,13 @@ The Project utilizes the Spring Boot framework in order to manage it's API. **Un
 ## Requirements
 - JVM and JRE running on Java 11 (or higher)
 - Maven
+- Docker
 
 ## Installation
 - After cloning the git repo into your local file system first use Maven to download all the nessicary dependencys and build the project
     - On Windows:   ``mvnw package``
     - On Unix:  ``mvn package`` 
+- Setup the database using ``docker-compose up -d`` from the root directory
 - The API should now be running on ``http://localhost:8080/ultra-api/``
 
 ## Documentation
