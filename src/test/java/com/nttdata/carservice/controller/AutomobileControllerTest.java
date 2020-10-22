@@ -1,7 +1,7 @@
 package com.nttdata.carservice.controller;
 
 import com.nttdata.carservice.entity.Automobile;
-import com.nttdata.carservice.automobile.AutomobileDataStorage;
+import com.nttdata.carservice.storage.AutomobileDataStorage;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
@@ -21,7 +21,7 @@ public class AutomobileControllerTest {
     @BeforeAll
     static void setAutomobileController(){
         //initialize Controller with Mock Database
-        automobileController = new AutomobileController(automobileDataStorage);
+        automobileController = new AutomobileController(automobileDataStorage, null);
 
         //disable Logger
         Logger.getRootLogger().removeAllAppenders();

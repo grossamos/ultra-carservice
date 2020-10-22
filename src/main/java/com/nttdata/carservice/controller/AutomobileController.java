@@ -2,9 +2,11 @@ package com.nttdata.carservice.controller;
 
 import com.nttdata.carservice.config.LogInterceptor;
 import com.nttdata.carservice.errorhandler.AutomobileErrorHandler;
+import com.nttdata.carservice.storage.AutomobileRepo;
+import com.nttdata.carservice.storage.TestRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.nttdata.carservice.automobile.AutomobileDataStorage;
+import com.nttdata.carservice.storage.AutomobileDataStorage;
 import com.nttdata.carservice.entity.Automobile;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,8 @@ public class AutomobileController {
 
     private static final Logger logger = LoggerFactory.getLogger(LogInterceptor.class);;
 
+    private final AutomobileRepo automobileRepo;
+
     /**
      * Constructor for Controller.
      *
@@ -42,8 +46,9 @@ public class AutomobileController {
      */
 
     @Autowired
-    public AutomobileController(AutomobileDataStorage automobileDataStorage){
+    public AutomobileController(AutomobileDataStorage automobileDataStorage, AutomobileRepo automobileRepo){
         this.m_automobileDataStorage = automobileDataStorage;
+        this.automobileRepo = automobileRepo;
         m_automobileDataStorage.getAutomobilesFromFile();
     }
 
@@ -183,6 +188,15 @@ public class AutomobileController {
     public ResponseEntity<?> resetAllAutomobiles(){
         m_automobileDataStorage.clearM_allAutomobiles();
         return new ResponseEntity<>("Empty Database", HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping(value = "/test")
+    public ResponseEntity<?> test(){
+        Automobile automobile = new Automobile();
+        automobile.generateId(m_automobileDataStorage);
+        automobileRepo.save(automobile);
+        m_automobileDataStorage.addAutomobile(automobile);
+        return new ResponseEntity<>("oof, it worked?", HttpStatus.OK);
     }
 
 }

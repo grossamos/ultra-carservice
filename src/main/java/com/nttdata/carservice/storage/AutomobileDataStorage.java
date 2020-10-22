@@ -1,4 +1,4 @@
-package com.nttdata.carservice.automobile;
+package com.nttdata.carservice.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
