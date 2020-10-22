@@ -1,6 +1,6 @@
 package com.nttdata.carservice.controller;
 
-import com.nttdata.carservice.automobile.Automobile;
+import com.nttdata.carservice.entity.Automobile;
 import com.nttdata.carservice.automobile.AutomobileDataStorage;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.*;

@@ -5,7 +5,7 @@ import com.nttdata.carservice.errorhandler.AutomobileErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.nttdata.carservice.automobile.AutomobileDataStorage;
-import com.nttdata.carservice.automobile.Automobile;
+import com.nttdata.carservice.entity.Automobile;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

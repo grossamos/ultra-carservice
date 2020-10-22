@@ -2,6 +2,7 @@ package com.nttdata.carservice.automobile;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nttdata.carservice.entity.Automobile;
 
 import java.io.File;
 import java.io.FileWriter;

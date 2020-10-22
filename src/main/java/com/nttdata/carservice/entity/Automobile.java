@@ -1,8 +1,14 @@
-package com.nttdata.carservice.automobile;
+package com.nttdata.carservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nttdata.carservice.automobile.AutomobileDataStorage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.Table;
 
 import java.util.HashMap;
 
@@ -13,8 +19,8 @@ import java.util.HashMap;
  * @author Amos Groß
  * @version 0.0.1
  */
-
 @ApiModel(description = "The class containing info about each car")
+//@Entity
 public class Automobile{
 
     @ApiModelProperty(notes = "Unique id for every car", hidden = true)
