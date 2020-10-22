@@ -7,7 +7,9 @@ import com.nttdata.carservice.entity.Automobile;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -23,18 +25,20 @@ public class AutomobileDataStorage {
     private HashMap<Integer, Automobile> m_allAutomobiles;
     private final File m_automobilesFile;
     static private final Gson m_gson = new Gson();
+    private final AutomobileRepo m_automobileRepo;
+
 
     /**
      * Constructor for AutomobileDataStorage Dependency Injection.
      *
      * Injects dependency of storage class (hashmap) and of where to save the file later on.
-     * @param allAutomobiles Injected storage
-     * @param fileToSave Injected file save location
+     * @param automobileRepo Dependency Injected Database Object
      */
 
-    public AutomobileDataStorage(HashMap<Integer, Automobile> allAutomobiles, File fileToSave){
-        this.m_allAutomobiles = allAutomobiles;
-        this.m_automobilesFile = fileToSave;
+    public AutomobileDataStorage(AutomobileRepo automobileRepo){
+        this.m_allAutomobiles = new HashMap<>();
+        this.m_automobilesFile = new File("./src/main/resources/static/automobiles.json");
+        this.m_automobileRepo = automobileRepo;
     }
 
     /**
@@ -79,8 +83,7 @@ public class AutomobileDataStorage {
 
     public void addAutomobile(Automobile someAutomobile){
         someAutomobile.generateId(this);
-        m_allAutomobiles.put(someAutomobile.getM_id(), someAutomobile);
-        pushAutomobilesToFile();
+        m_automobileRepo.save(someAutomobile);
     }
 
     /**
@@ -90,8 +93,7 @@ public class AutomobileDataStorage {
      */
 
     public void removeAutomobile(int id){
-        m_allAutomobiles.remove(id);
-        pushAutomobilesToFile();
+        m_automobileRepo.delete(getAutomobileFromID(id));
     }
 
     /**
@@ -102,10 +104,11 @@ public class AutomobileDataStorage {
      */
 
     public void changeAutomobile(int id, Automobile changesAutomobile){
-        Automobile oldAutomobile = m_allAutomobiles.get(id);
+        Automobile oldAutomobile = m_automobileRepo.findById(id).get();
         for (String key: changesAutomobile.getM_automobileAttributes().keySet()){
             oldAutomobile.setValue(key, changesAutomobile.getValue(key));
         }
+        m_automobileRepo.save(changesAutomobile);
     }
 
     /**
@@ -116,7 +119,7 @@ public class AutomobileDataStorage {
      */
 
     public boolean checkForInvalidID(int id){
-        return m_allAutomobiles.get(id) == null;
+        return m_automobileRepo.findById(id).isEmpty();
     }
 
     /**
@@ -126,15 +129,18 @@ public class AutomobileDataStorage {
      */
 
     public void clearM_allAutomobiles(){
-        m_allAutomobiles.clear();
-        pushAutomobilesToFile();
+        m_automobileRepo.deleteAll();
     }
 
-    public HashMap<Integer, Automobile> getM_allAutomobiles() {
-        return m_allAutomobiles;
+    public ArrayList<Automobile> getM_allAutomobiles() {
+        ArrayList<Automobile> allAutomobiles = new ArrayList<>();
+        for (Automobile automobile : m_automobileRepo.findAll()) {
+            allAutomobiles.add(automobile);
+        }
+        return allAutomobiles;
     }
 
     public Automobile getAutomobileFromID(int id){
-        return m_allAutomobiles.get(id);
+        return m_automobileRepo.findById(id).get();
     }
 }

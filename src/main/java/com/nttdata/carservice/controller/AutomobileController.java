@@ -1,11 +1,7 @@
 package com.nttdata.carservice.controller;
 
-import com.nttdata.carservice.config.LogInterceptor;
 import com.nttdata.carservice.errorhandler.AutomobileErrorHandler;
 import com.nttdata.carservice.storage.AutomobileRepo;
-import com.nttdata.carservice.storage.TestRepo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.nttdata.carservice.storage.AutomobileDataStorage;
 import com.nttdata.carservice.entity.Automobile;
 import io.swagger.annotations.*;
@@ -16,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -34,22 +31,19 @@ public class AutomobileController {
 
     private final AutomobileDataStorage m_automobileDataStorage;
 
-    private static final Logger logger = LoggerFactory.getLogger(LogInterceptor.class);;
-
     private final AutomobileRepo automobileRepo;
 
     /**
      * Constructor for Controller.
      *
      * Inject dependency to DataStorage class into Controller.
-     * @param automobileDataStorage injected DataStorage
+     * @param automobileRepo injected Database Access Object
      */
 
     @Autowired
-    public AutomobileController(AutomobileDataStorage automobileDataStorage, AutomobileRepo automobileRepo){
-        this.m_automobileDataStorage = automobileDataStorage;
+    public AutomobileController(AutomobileRepo automobileRepo){
+        this.m_automobileDataStorage = new AutomobileDataStorage(automobileRepo);
         this.automobileRepo = automobileRepo;
-        m_automobileDataStorage.getAutomobilesFromFile();
     }
 
     /**
@@ -88,7 +82,7 @@ public class AutomobileController {
     @GetMapping(value = "/read-all")
     public ResponseEntity<?> readAllAutomobile() {
 
-        HashMap<Integer, Automobile> allAutomobiles = m_automobileDataStorage.getM_allAutomobiles();
+        ArrayList<Automobile> allAutomobiles = m_automobileDataStorage.getM_allAutomobiles();
 
         if (allAutomobiles.isEmpty())
             return AutomobileErrorHandler.noEntriesError();
@@ -165,7 +159,7 @@ public class AutomobileController {
     public ResponseEntity<String> deleteAutomobile(
         @ApiParam(value = "ID of your car (returned at creation)", required = true)
         @RequestParam(value = "id") int id) {
-        if (id == 0 || m_automobileDataStorage.checkForInvalidID(id)) {
+        if (m_automobileDataStorage.checkForInvalidID(id)) {
             return AutomobileErrorHandler.wrongIdError();
         }
         m_automobileDataStorage.removeAutomobile(id);
@@ -193,6 +187,7 @@ public class AutomobileController {
     @GetMapping(value = "/test")
     public ResponseEntity<?> test(){
         Automobile automobile = new Automobile();
+        automobile.setValue("name", "kkk");
         automobile.generateId(m_automobileDataStorage);
         automobileRepo.save(automobile);
         m_automobileDataStorage.addAutomobile(automobile);

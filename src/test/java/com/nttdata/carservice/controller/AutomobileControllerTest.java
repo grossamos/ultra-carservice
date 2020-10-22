@@ -21,7 +21,7 @@ public class AutomobileControllerTest {
     @BeforeAll
     static void setAutomobileController(){
         //initialize Controller with Mock Database
-        automobileController = new AutomobileController(automobileDataStorage, null);
+        automobileController = new AutomobileController(null);
 
         //disable Logger
         Logger.getRootLogger().removeAllAppenders();
@@ -35,7 +35,7 @@ public class AutomobileControllerTest {
 
         //setup Mockito checkForInvalidID to say every ID is valid, and return empty Automobile at getAutomobileFromID
         setMockIdCheckToFalse();
-        Mockito.when(automobileDataStorage.getAutomobileFromID(Mockito.anyInt())).thenReturn(emptyAutomobile);
+//        Mockito.when(automobileDataStorage.getAutomobileFromID(Mockito.anyInt())).thenReturn(emptyAutomobile);
 
         //test if Controller returns empty Automobile as Response code, with correct code
         assertEquals(HttpStatus.OK, automobileController.readSingleAutomobile(0).getStatusCode());
@@ -45,7 +45,7 @@ public class AutomobileControllerTest {
     void readAllAutomobile() {
         //setup mockito to return mock Hashmap
         HashMap<Integer, Automobile> emptyMap = Mockito.mock(HashMap.class);
-        Mockito.when(automobileDataStorage.getM_allAutomobiles()).thenReturn(emptyMap);
+//        Mockito.when(automobileDataStorage.getM_allAutomobiles()).thenReturn(emptyMap);
 
         //check if Map is returned with correct code
         assertEquals(HttpStatus.OK, automobileController.readAllAutomobile().getStatusCode());

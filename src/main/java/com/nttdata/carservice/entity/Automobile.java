@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A class for all Automobile entries.
@@ -21,17 +22,19 @@ import java.util.HashMap;
 public class Automobile{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @ApiModelProperty(notes = "Unique id for every car", hidden = true)
-    private int m_id = 0;
+    private int m_id;
 
-    @Transient
+    @ElementCollection
     @ApiModelProperty(notes = "Hashmap containing properties of that specific car")
-    private final HashMap<String, String> m_automobileAttributes = new HashMap<>();
+    private Map<String, String> m_automobileAttributes = new HashMap<>();
 
 
     public int getM_id() {
         return m_id;
     }
+
 
     /**
      * Generates an Automobiles ID.
@@ -42,25 +45,25 @@ public class Automobile{
      */
 
     public void generateId(AutomobileDataStorage automobileDataStorage){
-        if (m_id != 0)
-            return;
-
-        int new_id;
-        int id_size = 10000;
-
-        if (this.getM_name() == null && this.getM_model() == null)
-            new_id = 1;
-        else if (this.getM_name() == null)
-            new_id = this.getM_model().hashCode() % id_size;
-        else if (this.getM_model() == null)
-            new_id = this.getM_name().hashCode() % id_size;
-        else
-            new_id = (this.getM_name().hashCode() ^ this.getM_model().hashCode()) % 10000;
-
-        while (!automobileDataStorage.checkForInvalidID(new_id)){
-            new_id++;
-        }
-        this.m_id = new_id;
+//        if (m_id != 0)
+//            return;
+//
+//        int new_id;
+//        int id_size = 10000;
+//
+//        if (this.getM_name() == null && this.getM_model() == null)
+//            new_id = 1;
+//        else if (this.getM_name() == null)
+//            new_id = this.getM_model().hashCode() % id_size;
+//        else if (this.getM_model() == null)
+//            new_id = this.getM_name().hashCode() % id_size;
+//        else
+//            new_id = (this.getM_name().hashCode() ^ this.getM_model().hashCode()) % 10000;
+//
+//        while (!automobileDataStorage.checkForInvalidID(new_id)){
+//            new_id++;
+//        }
+//        this.m_id = new_id;
 
     }
 
@@ -72,8 +75,12 @@ public class Automobile{
         return this.m_automobileAttributes.get(key);
     }
 
-    public HashMap<String, String> getM_automobileAttributes() {
+    public Map<String, String> getM_automobileAttributes() {
         return m_automobileAttributes;
+    }
+
+    public void setM_automobileAttributes(Map<String, String> m_automobileAttributes) {
+        this.m_automobileAttributes = m_automobileAttributes;
     }
 
     @JsonIgnore
