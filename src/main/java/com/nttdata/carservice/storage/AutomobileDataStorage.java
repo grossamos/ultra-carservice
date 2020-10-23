@@ -14,7 +14,8 @@ import java.util.ArrayList;
  */
 
 public class AutomobileDataStorage {
-    private final AutomobileRepo m_automobileRepo;
+    private AutomobileRepo m_automobileRepo;
+
     /**
      * Constructor for AutomobileDataStorage Dependency Injection.
      *
@@ -24,6 +25,10 @@ public class AutomobileDataStorage {
 
     public AutomobileDataStorage(AutomobileRepo automobileRepo){
         this.m_automobileRepo = automobileRepo;
+    }
+
+    public AutomobileDataStorage(){
+
     }
 
     /**
@@ -96,5 +101,9 @@ public class AutomobileDataStorage {
 
     public Automobile getAutomobileFromID(int id){
         return m_automobileRepo.findById(id).get();
+    }
+
+    public void setM_automobileRepo(AutomobileRepo m_automobileRepo) {
+        this.m_automobileRepo = m_automobileRepo;
     }
 }

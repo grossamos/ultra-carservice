@@ -41,9 +41,10 @@ public class AutomobileController {
      */
 
     @Autowired
-    public AutomobileController(AutomobileRepo automobileRepo){
-        this.m_automobileDataStorage = new AutomobileDataStorage(automobileRepo);
+    public AutomobileController(AutomobileRepo automobileRepo, AutomobileDataStorage automobileDataStorage){
+        this.m_automobileDataStorage = automobileDataStorage;
         this.automobileRepo = automobileRepo;
+        automobileDataStorage.setM_automobileRepo(automobileRepo);
     }
 
     /**
@@ -110,9 +111,9 @@ public class AutomobileController {
             @RequestBody() Automobile automobileJson,
            @ApiParam(value = "ID of your car (returned at creation)",
                    required = true)
-           @RequestParam(value = "id", defaultValue = "0") int id) {
+           @RequestParam(value = "id") int id) {
 
-        if (id == 0 || m_automobileDataStorage.checkForInvalidID(id)) {
+        if (m_automobileDataStorage.checkForInvalidID(id)) {
             return AutomobileErrorHandler.wrongIdError();
         }
         else if (automobileJson.getM_automobileAttributes().isEmpty()){
