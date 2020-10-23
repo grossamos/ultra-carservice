@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nttdata.carservice.storage.AutomobileDataStorage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -21,13 +22,16 @@ import java.util.Map;
 @Table(name = "automobile")
 public class Automobile{
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="auto_id")
     @ApiModelProperty(notes = "Unique id for every car", hidden = true)
-    private int m_id;
+    //default id has to be non 0 due to duplication bug
+    private int m_id = 69420;
 
     @ElementCollection
     @ApiModelProperty(notes = "Hashmap containing properties of that specific car")
+    @CollectionTable(name="automobile_attributes")
     private Map<String, String> m_automobileAttributes = new HashMap<>();
 
 
@@ -45,25 +49,27 @@ public class Automobile{
      */
 
     public void generateId(AutomobileDataStorage automobileDataStorage){
-//        if (m_id != 0)
-//            return;
-//
-//        int new_id;
-//        int id_size = 10000;
-//
-//        if (this.getM_name() == null && this.getM_model() == null)
-//            new_id = 1;
-//        else if (this.getM_name() == null)
-//            new_id = this.getM_model().hashCode() % id_size;
-//        else if (this.getM_model() == null)
-//            new_id = this.getM_name().hashCode() % id_size;
-//        else
-//            new_id = (this.getM_name().hashCode() ^ this.getM_model().hashCode()) % 10000;
-//
-//        while (!automobileDataStorage.checkForInvalidID(new_id)){
-//            new_id++;
-//        }
-//        this.m_id = new_id;
+
+        //checks for default id, to see if an id has been set yet
+        if (m_id != 69420)
+            return;
+
+        int new_id;
+        int id_size = 10000;
+
+        if (this.getM_name() == null && this.getM_model() == null)
+            new_id = 1;
+        else if (this.getM_name() == null)
+            new_id = this.getM_model().hashCode() % id_size;
+        else if (this.getM_model() == null)
+            new_id = this.getM_name().hashCode() % id_size;
+        else
+            new_id = (this.getM_name().hashCode() ^ this.getM_model().hashCode()) % 10000;
+
+        while (!automobileDataStorage.checkForInvalidID(new_id)){
+            new_id++;
+        }
+        this.m_id = new_id;
 
     }
 

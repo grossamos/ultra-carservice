@@ -109,6 +109,8 @@ public class AutomobileDataStorage {
             oldAutomobile.setValue(key, changesAutomobile.getValue(key));
         }
         m_automobileRepo.save(changesAutomobile);
+        //default id has to be non 0 due to some fucking reason
+        m_automobileRepo.deleteById(69420);
     }
 
     /**
