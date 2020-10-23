@@ -1,16 +1,8 @@
 package com.nttdata.carservice.storage;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.nttdata.carservice.entity.Automobile;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
 
 /**
  * DataStorage class for Automobile entries.
@@ -22,12 +14,7 @@ import java.util.Scanner;
  */
 
 public class AutomobileDataStorage {
-    private HashMap<Integer, Automobile> m_allAutomobiles;
-    private final File m_automobilesFile;
-    static private final Gson m_gson = new Gson();
     private final AutomobileRepo m_automobileRepo;
-
-
     /**
      * Constructor for AutomobileDataStorage Dependency Injection.
      *
@@ -36,8 +23,6 @@ public class AutomobileDataStorage {
      */
 
     public AutomobileDataStorage(AutomobileRepo automobileRepo){
-        this.m_allAutomobiles = new HashMap<>();
-        this.m_automobilesFile = new File("./src/main/resources/static/automobiles.json");
         this.m_automobileRepo = automobileRepo;
     }
 
