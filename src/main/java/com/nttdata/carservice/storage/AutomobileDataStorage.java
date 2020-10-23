@@ -42,39 +42,6 @@ public class AutomobileDataStorage {
     }
 
     /**
-     * Retrieves saved state from the file.
-     */
-
-    public void getAutomobilesFromFile(){
-        try {
-            m_automobilesFile.exists();
-            Scanner scanner = new Scanner(m_automobilesFile);
-            StringBuilder automobilesAsJSON = new StringBuilder();
-            while (scanner.hasNextLine())
-                automobilesAsJSON.append(scanner.nextLine()).append("\n");
-            m_allAutomobiles = m_gson.fromJson(automobilesAsJSON.toString(), new TypeToken<HashMap<Integer, Automobile>>(){}.getType());
-            scanner.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Saves the current state to the file.
-     */
-
-    public void pushAutomobilesToFile(){
-        try {
-            m_automobilesFile.createNewFile();
-            FileWriter jsonWriter = new FileWriter(m_automobilesFile.getPath());
-            jsonWriter.write(m_gson.toJson(m_allAutomobiles));
-            jsonWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Adds an Automobile to storage.
      *
      * Adds it to the Hashmap and generates a new unique id. <u>Only to be used for initial adding</u>
