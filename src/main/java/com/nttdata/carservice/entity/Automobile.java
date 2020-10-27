@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nttdata.carservice.storage.AutomobileDataStorage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -26,8 +25,7 @@ public class Automobile{
     @Id
     @Column(name="auto_id")
     @ApiModelProperty(notes = "Unique id for every car", hidden = true)
-    //default id has to be non 0 due to duplication bug
-    private int m_id = 69420;
+    private int m_id = 0;
 
     @ElementCollection
     @ApiModelProperty(notes = "Hashmap containing properties of that specific car")
@@ -51,7 +49,7 @@ public class Automobile{
     public void generateId(AutomobileDataStorage automobileDataStorage){
 
         //checks for default id, to see if an id has been set yet
-        if (m_id != 69420)
+        if (m_id != 0)
             return;
 
         int new_id;
