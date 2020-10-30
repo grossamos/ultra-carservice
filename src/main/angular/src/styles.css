@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+  background-color: #ffc0eb;
+  animation: bgColor 5s infinite linear;
+  font-family: 'Montserrat', sans-serif;;
+}
+
+@keyframes bgColor {
+  12.5% {
+    background-color: #ffc0eb;
+  }
+  25% {
+    background-color: #ff748c;
+  }
+  37.5% {
+    background-color: #ffc0eb;
+  }
+  50% {
+    background-color: #ff748c;
+  }
+  62.5% {
+    background-color: #ffc0eb;
+  }
+  75% {
+    background-color: #ff748c;
+  }
+  87.5% {
+    background-color: #ffc0eb;
+  }
+  100% {
+    background-color: #ff748c;
+  }
+}

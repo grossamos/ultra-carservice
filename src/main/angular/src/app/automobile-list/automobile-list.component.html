@@ -1,0 +1,14 @@
+<div class="all_content">
+  <img class="imgs" id="img_one" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi2.kym-cdn.com%2Fphotos%2Fimages%2Foriginal%2F000%2F480%2F551%2Fb04.gif&f=1&nofb=1">
+  <img class="imgs" id="img_two" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi2.kym-cdn.com%2Fphotos%2Fimages%2Foriginal%2F000%2F480%2F551%2Fb04.gif&f=1&nofb=1">
+  <div class="main-content">
+    <div *ngFor="let auto of myAutomobiles" class="auto-item">
+      <h1 class="title_stuff">Auto: {{auto.m_id}} </h1>
+      <div *ngFor="let attr of auto.m_automobileAttributes | keyvalue">
+        <p class="content_stuff">{{attr.key | uppercase}} : {{attr.value}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

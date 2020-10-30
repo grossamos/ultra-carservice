@@ -1,0 +1,10 @@
+.title_all {
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  font-size: 70px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 25px;
+  width: fit-content;
+}
