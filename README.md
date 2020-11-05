@@ -6,6 +6,7 @@
 - [Installation](#Installation)
 - [Documentation](#Documentation)
 - [Testing](#Testing)
+- [Frontend (Angular)](#Frontend (Angular))
 - [Usage](#Usage)
 
 ## Overview
@@ -16,6 +17,8 @@ The Project utilizes the Spring Boot framework in order to manage it's API. **Un
 - JVM and JRE running on Java 11 (or higher)
 - Maven
 - Docker
+- NodeJs
+- Angular
 
 ## Installation
 - After cloning the git repo into your local file system first use Maven to download all the nessicary dependencys and build the project
@@ -44,6 +47,18 @@ The Project utilizes the Spring Boot framework in order to manage it's API. **Un
 - Entering Postgres
     - Step 1: ``docker exec -it ultra-database bash``
     - Step 2: ``psql -U postgres``
+    
+## Frontend (Angular)
+- To access to front end (with Spring boot and Postgres running in the background):
+    - navigate to ``./src/main/angular`` from the root directory
+    - make sure angular & typescript are installed 
+    - start the angular app using: ``ng serve --open``
+    - (your browser should open the page automatically)
+- Overview:
+    - List of all cars: ``http://localhost:4200/list-all`` or ``http://localhost:4200/``
+    - Search for individual cars: ``http://localhost:4200/search``
+    - Create car entries: ``http://localhost:4200/create``
+    - Edit existing car entries: ``http://localhost:4200/edit``
 
 ## Usage
 - General Overview:
