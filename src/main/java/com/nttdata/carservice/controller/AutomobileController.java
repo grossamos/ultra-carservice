@@ -144,6 +144,14 @@ public class AutomobileController {
         return new ResponseEntity<>("Created: " + automobileJSON.getM_id(), HttpStatus.CREATED);
     }
 
+
+    @PostMapping(value = "/create-car-test", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> testShit(@RequestBody String automobileJSON) {
+        System.out.println(automobileJSON);
+        return new ResponseEntity<>("Created: " + 99, HttpStatus.CREATED);
+    }
+
+
     /**
      * Api call to delete an entry.
      *

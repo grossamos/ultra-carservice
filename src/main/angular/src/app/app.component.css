@@ -8,3 +8,21 @@
   padding: 25px;
   width: fit-content;
 }
+
+.imgs{
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  transform: rotate(90deg);
+}
+#img_one {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+#img_two {
+  grid-column-start: 3;
+  grid-column-end: 4;
+
+}
+

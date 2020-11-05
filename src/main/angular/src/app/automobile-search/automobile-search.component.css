@@ -1,0 +1,12 @@
+.search_pos_override{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  padding-bottom: 20px;
+}
+
+.result_pos_override{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+}

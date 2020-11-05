@@ -1,5 +1,4 @@
 export class Automobile{
-  id: number;
-  name: string;
-  year: string;
+  m_id: number = 0;
+  m_automobileAttributes: { [key: string]: string } = {};
 }

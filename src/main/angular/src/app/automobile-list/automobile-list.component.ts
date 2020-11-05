@@ -16,7 +16,12 @@ export class AutomobileListComponent implements OnInit {
   myAutomobiles: any[];
 
   ngOnInit(): void {
-    this.ultraService.getSomething().subscribe(data => this.myAutomobiles = data);
+    this.ultraService.getListOfCars().subscribe(data => this.myAutomobiles = data);
+  }
+
+  deleteAutomobile(id: number): void{
+    this.ultraService.deleteSomething(id);
+    this.ultraService.getListOfCars().subscribe(data => this.myAutomobiles = data);
   }
 
 }
