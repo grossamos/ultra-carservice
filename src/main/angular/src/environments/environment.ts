@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host_ip: 'http://minikube/backend'
+  host_ip: 'http://ultraservicespringboot/backend'
 };
 
 /*
