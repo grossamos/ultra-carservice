@@ -9,7 +9,7 @@ import {environment} from '../environments/environment';
 })
 export class UltraCarServiceService {
 
-  readonly rootApiUrl: string = 'http://' + environment.host_ip + '/ultra-api';
+  readonly rootApiUrl: string = environment.host_ip + '/ultra-api';
 
   constructor(private http: HttpClient) {
   }

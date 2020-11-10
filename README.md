@@ -10,8 +10,8 @@
 - [Usage](#Usage)
 
 ## Overview
-A CRUD based REST API, that allows you to manage an Inventory of cars, with options to list, create, update and delete entrys. 
-The Project utilizes the Spring Boot framework in order to manage it's API. **Unlike many similar APIs, it retains it's entrys even after a restart!**
+A web application based on a restful CRUD API, that allows you to manage an Inventory of cars, with options to list, create, update and delete entrys. 
+The Project utilizes the Spring Boot framework in order to manage it's API, postgres to store the data and angular to display it in the front end. **And unlike many similar APIs, it is ULTRA cool**
 
 ## Requirements
 - JVM and JRE running on Java 11 (or higher)
@@ -19,20 +19,23 @@ The Project utilizes the Spring Boot framework in order to manage it's API. **Un
 - Docker
 - NodeJs
 - Angular
+- Typescript
+- Kubernetes
+- Minikube
 
 ## Installation
-- If all depenencys are installed, run: ``mvn package && cd ./src/main/angular && npm run build --prod && cd ../../../ && cp -r ./src/main/angular/dist/angular ./target/ && docker-compose up --build -d`` 
--After cloning the git repo into your local file system first use Maven to download all the nessicary dependencys and build the project
-    - On Windows:   ``mvnw package``
-    - On Unix:  ``mvn package`` 
-- Setup the database using ``docker-compose up -d`` from the root directory
-- The API should now be running on ``http://localhost:8080/ultra-api/``
+- Step 1: Install all dependencies named above (example given using chocolaty)
+    - ``choco install openjdk:11 maven docker nodejs minikube``
+    - ``npm intsall -g typescript angular``
+- Step 2: Run the deployment script ``bash ./deploy.sh``
+- Step 3: The webapp should now be running at ``http://minikube/list-all``
+- Step 4: If failed run: ``eval "$(minikube docker-env --shell=bash)"`` and repeat steps 2-3
 
 ## Documentation
-- This project is compatible with java docs
-- if you wish to generate the documentation, run the following command: ``mvn javadoc:javadoc``
-- The files can then be found under ``./target/site/apidocs`` in your project directory
-- Furthermore, precise documentation for using the API can be found under ``http://localhost:8080/swagger-ui/`` at runtime
+- The java portion of project is compatible with java docs
+    - If you wish to generate that documentation, run the following command: ``mvn javadoc:javadoc`` in the project root
+    - The files can then be found under ``./target/site/apidocs`` in your project directory
+- Furthermore, precise documentation for using the API can be found under ``http://minikube:8080/swagger-ui/`` at runtime
 
 ## Testing
 - The project has two types of test already setup: 
@@ -56,21 +59,21 @@ The Project utilizes the Spring Boot framework in order to manage it's API. **Un
     - start the angular app using: ``ng serve --open``
     - (your browser should open the page automatically)
 - Overview:
-    - List of all cars: ``http://localhost:4200/list-all`` or ``http://localhost:4200/``
-    - Search for individual cars: ``http://localhost:4200/search``
-    - Create car entries: ``http://localhost:4200/create``
-    - Edit existing car entries: ``http://localhost:4200/edit``
+    - List of all cars: ``http://minikube/list-all`` or ``http://minikube/``
+    - Search for individual cars: ``http://minikube/search``
+    - Create car entries: ``http://minikube/create``
+    - Edit existing car entries: ``http://minikube/edit``
 
 ## Usage
 - General Overview:
-    - **C**reate entries: POST-Request to ``http://localhost:8080/ultra-api/create-car`` and a JSON Object in the body containing the following items:
+    - **C**reate entries: POST-Request to ``http://minikube/backend/ultra-api/create-car`` and a JSON Object in the body containing the following items:
         - name
         - model
     - **R**ead entries
-        - to read all entries: GET-Request to ``http://localhost:8080/ultra-api/read-all``
-        - to read out single entries: GET-Request to ``http://localhost:8080/ultra-api/read-single?id&19`` (here the id 19 is being checked)
-    - **U**pdate entries: PUT-Request to ``http://localhost:8080/ultra-api/update-car?id=19``
+        - to read all entries: GET-Request to ``http://minikube/backend/ultra-api/read-all``
+        - to read out single entries: GET-Request to ``http://minikube/backend/ultra-api/read-single?id&19`` (here the id 19 is being checked)
+    - **U**pdate entries: PUT-Request to ``http://minikube/backend/ultra-api/update-car?id=19``
         - with the id number (here 19) displaying the id of what car has to be updated 
         - as well as a JSON Object in the body containing the same items as the create method
-    - **D**elete entries: DELETE-Request to ``http://localhost:8080/ultra-api/delete-car?id=19`` (here the entry with id number 19 is being deleted)
-- For precise Usage info, please visit ``http://localhost:8080/swagger-ui/``
+    - **D**elete entries: DELETE-Request to ``http://minikube/backend/ultra-api/delete-car?id=19`` (here the entry with id number 19 is being deleted)
+- For precise Usage info, please visit ``http://minikube/backend/swagger-ui/``

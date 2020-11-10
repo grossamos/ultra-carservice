@@ -44,7 +44,7 @@ spec:
     matchLabels:
       app: postgres-k8s-deployment
   serviceName: postgres-k8s-service
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -58,11 +58,17 @@ spec:
               mountPath: /var/lib/postgresql/data
           env:
             - name: POSTGRES_PASSWORD
-              value: password
+              valueFrom:
+                secretKeyRef:
+                  name: psqlsecret
+                  key: PSQL_PASSWORD
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
             - name: POSTGRES_DB
-              value: ultradb
+              valueFrom:
+                secretKeyRef:
+                  name: kubernetes-config
+                  key: PSQL_DB
   volumeClaimTemplates:
     - metadata:
         name: postgres-disk
@@ -124,3 +130,21 @@ spec:
   selector:
     app: springboot-k8s-deployment
   type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ultra-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: angular-k8s-service
+                port:
+                  number: 80

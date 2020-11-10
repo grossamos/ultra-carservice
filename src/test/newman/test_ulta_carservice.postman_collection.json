@@ -25,10 +25,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/read-all",
+					"raw": "http://minikube:8080/ultra-api/read-all",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -88,10 +88,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/create-car",
+					"raw": "http://minikube:8080/ultra-api/create-car",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -137,10 +137,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/create-car",
+					"raw": "http://minikube:8080/ultra-api/create-car",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -181,10 +181,10 @@
 					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2003\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/update-car?id={{idOfCar}}",
+					"raw": "http://minikube:8080/ultra-api/update-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -231,10 +231,10 @@
 					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2003\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/update-car?id={{idOfCar}}",
+					"raw": "http://minikube:8080/ultra-api/update-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -286,10 +286,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/update-car?id=972999",
+					"raw": "http://minikube:8080/ultra-api/update-car?id=972999",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -351,10 +351,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/update-car?id={{idOfCar}}",
+					"raw": "http://minikube:8080/ultra-api/update-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -399,10 +399,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/read-single?id={{idOfCar}}",
+					"raw": "http://minikube:8080/ultra-api/read-single?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -457,10 +457,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/read-single?id=972999",
+					"raw": "http://minikube:8080/ultra-api/read-single?id=972999",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -498,10 +498,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/delete-car?id={{idOfCar}}",
+					"raw": "http://minikube:8080/ultra-api/delete-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
@@ -553,10 +553,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/delete-car?id=972999",
+					"raw": "http://minikube:8080/ultra-api/delete-car?id=972999",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
