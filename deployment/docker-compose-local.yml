@@ -1,0 +1,14 @@
+version: "3"
+services:
+  ultra-database:
+    container_name: ultra-database
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ultra-db
+    volumes:
+      - postgres-ultra-persist:/var/lib/postgresql/data
+volumes:
+  postgres-ultra-persist:
