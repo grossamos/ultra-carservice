@@ -13,6 +13,8 @@
 A web application based on a restful CRUD API, that allows you to manage an Inventory of cars, with options to list, create, update and delete entrys. 
 The Project utilizes the Spring Boot framework in order to manage it's API, postgres to store the data and angular to display it in the front end. **And unlike many similar APIs, it is ULTRA cool**
 
+![Picture of application](/deployment/endresult/UltraServiceClient.png)
+
 ## Requirements
 - JVM and JRE running on Java 11 (or higher)
 - Maven
