@@ -52,7 +52,7 @@ spec:
     spec:
       containers:
         - name: postgres-k8s-deployment
-          image: postgres
+          image: postgres:13
           volumeMounts:
             - name: postgres-disk
               mountPath: /var/lib/postgresql/data
@@ -67,7 +67,7 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: kubernetes-config
+                  name: psqlsecret
                   key: PSQL_DB
   volumeClaimTemplates:
     - metadata:

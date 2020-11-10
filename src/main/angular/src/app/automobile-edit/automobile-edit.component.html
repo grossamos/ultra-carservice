@@ -6,11 +6,12 @@
 <form [formGroup]="myForm">
   <div formArrayName="m_automobileAttributes">
     <div *ngFor="let valuePair of autoAttributesForms.controls; let i=index" [formGroupName]="i">
-      <input placeholder="Attribute name" formControlName="key">
-      <input placeholder="Attribute value" formControlName="value">
+      <input class="input-field" placeholder="Attribute name" formControlName="key">
+      <input class="input-field" placeholder="Attribute value" formControlName="value">
       <button type="submit" (click)="deleteValuePair(i)">Delete field</button>
     </div>
   </div>
-  <button type="submit" (click)="addNewItem()">Add new field</button>
-  <button type="submit" (click)="saveAuto()">Save</button>
+  <button class="button-submit" type="submit" (click)="addNewItem()">Add new field</button>
+  <br/>
+  <button class="button-submit" type="submit" (click)="saveAuto()">Save</button>
 </form>

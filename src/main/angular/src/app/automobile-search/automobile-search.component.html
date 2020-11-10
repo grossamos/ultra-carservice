@@ -2,7 +2,7 @@
   <div class="main-content result_pos_override">
     <div class="search_pos_override">
       <h4><label for="search-box">Automobile Search</label></h4>
-      <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+      <input #searchBox id="search-box" class="input-field" (input)="search(searchBox.value)" />
     </div>
     <div *ngIf="foundAuto$" class="auto-item">
       <h1 class="title_stuff">Auto: {{foundAuto$.m_id}} </h1>

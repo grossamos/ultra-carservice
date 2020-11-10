@@ -70,3 +70,24 @@ body{
   display: grid;
   justify-content: center;
 }
+
+.button-submit{
+  padding: 5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  box-shadow: none;
+  margin: 4px;
+  alignment: right;
+}
+
+.input-field{
+  padding: 5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  box-shadow: none;
+  margin: 4px;
+}

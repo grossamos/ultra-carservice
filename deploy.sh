@@ -7,6 +7,7 @@ cp -r ./* ../../../../../target/angular/
 
 # Start minikube
 minikube start
+minikube addons enable ingress
 eval "$(minikube docker-env --shell=bash)"
 
 # Build Docker images
@@ -21,6 +22,9 @@ kubectl delete -f ./deployment/kubernetes.yml
 kubectl apply -f ./deployment/kubernetes.yml
 
 # Success message
+URL=$(minikube service angular-k8s-service --url)
+
 echo "--------------------------------------"
 echo "Started successfully in ${SECONDS} sec"
+echo "visit at: http://minikube/ or ${URL}"
 echo "--------------------------------------"
