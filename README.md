@@ -21,7 +21,8 @@ The Project utilizes the Spring Boot framework in order to manage it's API. **Un
 - Angular
 
 ## Installation
-- After cloning the git repo into your local file system first use Maven to download all the nessicary dependencys and build the project
+- If all depenencys are installed, run: ``mvn package && cd ./src/main/angular && npm run build --prod && cd ../../../ && cp -r ./src/main/angular/dist/angular ./target/ && docker-compose up --build -d`` 
+-After cloning the git repo into your local file system first use Maven to download all the nessicary dependencys and build the project
     - On Windows:   ``mvnw package``
     - On Unix:  ``mvn package`` 
 - Setup the database using ``docker-compose up -d`` from the root directory

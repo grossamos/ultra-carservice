@@ -10,5 +10,33 @@ services:
       - POSTGRES_DB=ultra-db
     volumes:
       - postgres-ultra-persist:/var/lib/postgresql/data
+    networks:
+      - backend-stuff
+  ultra-car-service-backend:
+    container_name: ultra-carservice-back
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+    - 8080:8080
+    depends_on:
+      - ultra-database
+    networks:
+      - backend-stuff
+  ultra-car-service-frontend:
+    container_name: ultra-carservice-front
+    build:
+      context: .
+      dockerfile: Dockerfile-angular
+    ports:
+      - 80:80
+    depends_on:
+      - ultra-car-service-backend
+    networks:
+      - angular-stuff
 volumes:
   postgres-ultra-persist:
+
+networks:
+  angular-stuff:
+  backend-stuff:

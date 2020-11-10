@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/ultra-api")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://192.168.99.107:30170")
 @EnableSwagger2
 public class AutomobileController {
     //TODO: change input from Automobile to Hashmap (more intuitive) without Instantiation from new (to stay cool with DI)

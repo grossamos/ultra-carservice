@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AutomobileSearchComponent } from './automobile-search.component';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('AutomobileSearchComponent', () => {
   let component: AutomobileSearchComponent;
@@ -8,7 +9,8 @@ describe('AutomobileSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AutomobileSearchComponent ]
+      declarations: [ AutomobileSearchComponent ],
+      imports : [HttpClientModule]
     })
     .compileComponents();
   });

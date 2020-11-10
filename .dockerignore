@@ -1,0 +1,11 @@
+.git
+node_modules
+.mvn
+.idea
+.gitignore
+Dockerfile
+Dockerfile-angular
+logs
+src/main/angular/.git
+src/main/angular/node_modules
+src/main/angular/dist

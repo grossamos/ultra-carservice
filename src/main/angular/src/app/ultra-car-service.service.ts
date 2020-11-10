@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {Automobile} from '../Automobile';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UltraCarServiceService {
 
-  readonly rootApiUrl: string = 'http://localhost:8080/ultra-api';
+  readonly rootApiUrl: string = 'http://' + environment.host_ip + '/ultra-api';
 
   constructor(private http: HttpClient) {
   }

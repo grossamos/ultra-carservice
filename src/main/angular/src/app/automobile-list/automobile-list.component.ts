@@ -11,8 +11,6 @@ export class AutomobileListComponent implements OnInit {
 
   constructor(private ultraService: UltraCarServiceService) { }
 
-  myAutomobile: Automobile;
-
   myAutomobiles: any[];
 
   ngOnInit(): void {
