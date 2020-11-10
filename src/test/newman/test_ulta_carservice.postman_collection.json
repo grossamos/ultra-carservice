@@ -25,10 +25,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/read-all",
+					"raw": "http://localhost:8080/ultra-api/read-all",
 					"protocol": "http",
 					"host": [
-						"minikube"
+						"localhost"
 					],
 					"port": "8080",
 					"path": [
@@ -43,27 +43,26 @@
 			"name": "Create Valid Car",
 			"event": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"id": "8590137e-747a-441b-980f-e54ce50b75be",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
 					"listen": "test",
 					"script": {
-						"id": "a1c20364-e5e6-4620-9074-4c81b3d75a5e",
+						"id": "9a7ce399-7096-4771-8909-f4ecef225a11",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
 							"});\r",
 							"let newId = parseInt(pm.response.text().slice(9));\r",
 							"\r",
-							"pm.globals.set(\"idOfCar\", newId);\r",
-							"console.info(\"ID is: \" + newId)"
+							"pm.globals.set(\"idOfCar\", newId);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "873dbd9e-06a4-45d3-8d89-61fe26c32b31",
+						"exec": [
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -80,7 +79,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2040\",\r\n        \"serial\": \"kjhgfxcbn\"\r\n    }\r\n}",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"SD-Klasse\",\r\n        \"year\": \"1766\",\r\n        \"brand\" : \"Daimler\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,13 +87,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/create-car",
+					"raw": "http://minikube:8080/backend/ultra-api/create-car",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
 					"port": "8080",
 					"path": [
+						"backend",
 						"ultra-api",
 						"create-car"
 					]
@@ -137,13 +137,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/create-car",
+					"raw": "http://minikube:8080/backend/ultra-api/create-car",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
 					"port": "8080",
 					"path": [
+						"backend",
 						"ultra-api",
 						"create-car"
 					]
@@ -181,63 +182,14 @@
 					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2003\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}"
 				},
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/update-car?id={{idOfCar}}",
+					"raw": "http://minikube:8080/backend/ultra-api/update-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
 					"port": "8080",
 					"path": [
-						"ultra-api",
-						"update-car"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "{{idOfCar}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Check Valid Car Copy 2",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c257f371-49cc-456c-b0fc-eb66cb0c5b66",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2003\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}"
-				},
-				"url": {
-					"raw": "http://minikube:8080/ultra-api/update-car?id={{idOfCar}}",
-					"protocol": "http",
-					"host": [
-						"minikube"
-					],
-					"port": "8080",
-					"path": [
+						"backend",
 						"ultra-api",
 						"update-car"
 					],
@@ -286,13 +238,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/update-car?id=972999",
+					"raw": "http://minikube:8080/backend/ultra-api/update-car?id=972999",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
 					"port": "8080",
 					"path": [
+						"backend",
 						"ultra-api",
 						"update-car"
 					],
@@ -351,13 +304,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/update-car?id={{idOfCar}}",
+					"raw": "http://minikube:8080/backend/ultra-api/update-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
 					"port": "8080",
 					"path": [
+						"backend",
 						"ultra-api",
 						"update-car"
 					],
@@ -377,11 +331,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "93db4f70-cf42-445b-a229-3faaf6af9e8c",
+						"id": "119dce63-338b-4b39-91a4-bf853e7c8e91",
 						"exec": [
 							"pm.test(\"Returned data contains info from creation\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.m_automobileAttributes[\"serial\"]).to.eql(\"33xb92u4\");\r",
+							"    pm.expect(jsonData.m_automobileAttributes[\"serial\"]).to.eql(\"kjhgfxcbn\");\r",
 							"});\r",
 							"pm.test(\"Returned data contains info from update\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
@@ -399,13 +353,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/read-single?id={{idOfCar}}",
+					"raw": "http://minikube:8080/backend/ultra-api/read-single?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
 					"port": "8080",
 					"path": [
+						"backend",
 						"ultra-api",
 						"read-single"
 					],
@@ -457,13 +412,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/read-single?id=972999",
+					"raw": "http://minikube:8080/backend/ultra-api/read-single?id=972999",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
 					"port": "8080",
 					"path": [
+						"backend",
 						"ultra-api",
 						"read-single"
 					],
@@ -498,13 +454,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/delete-car?id={{idOfCar}}",
+					"raw": "http://minikube:8080/backend/ultra-api/delete-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
 					"port": "8080",
 					"path": [
+						"backend",
 						"ultra-api",
 						"delete-car"
 					],
@@ -553,13 +510,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/ultra-api/delete-car?id=972999",
+					"raw": "http://minikube:8080/backend/ultra-api/delete-car?id=972999",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
 					"port": "8080",
 					"path": [
+						"backend",
 						"ultra-api",
 						"delete-car"
 					],
