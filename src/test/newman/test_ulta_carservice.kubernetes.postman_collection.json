@@ -25,12 +25,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/read-all",
+					"raw": "http://minikube/backend/ultra-api/read-all",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
@@ -88,12 +87,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/create-car",
+					"raw": "http://minikube/backend/ultra-api/create-car",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
@@ -138,12 +136,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/create-car",
+					"raw": "http://minikube/backend/ultra-api/create-car",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
@@ -183,12 +180,11 @@
 					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2003\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}"
 				},
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/update-car?id={{idOfCar}}",
+					"raw": "http://minikube/backend/ultra-api/update-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
@@ -239,12 +235,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/update-car?id=972999",
+					"raw": "http://minikube/backend/ultra-api/update-car?id=972999",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
@@ -305,12 +300,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/update-car?id={{idOfCar}}",
+					"raw": "http://minikube/backend/ultra-api/update-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
@@ -354,12 +348,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/read-single?id={{idOfCar}}",
+					"raw": "http://minikube/backend/ultra-api/read-single?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
@@ -413,12 +406,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/read-single?id=972999",
+					"raw": "http://minikube/backend/ultra-api/read-single?id=972999",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
@@ -455,12 +447,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/delete-car?id={{idOfCar}}",
+					"raw": "http://minikube/backend/ultra-api/delete-car?id={{idOfCar}}",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
@@ -511,12 +502,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://minikube:8080/backend/ultra-api/delete-car?id=972999",
+					"raw": "http://minikube/backend/ultra-api/delete-car?id=972999",
 					"protocol": "http",
 					"host": [
 						"minikube"
 					],
-					"port": "8080",
 					"path": [
 						"backend",
 						"ultra-api",
