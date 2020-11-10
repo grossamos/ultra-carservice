@@ -25,13 +25,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/ultra-api/read-all",
+					"raw": "http://minikube:8080/backend/ultra-api/read-all",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"minikube"
 					],
 					"port": "8080",
 					"path": [
+						"backend",
 						"ultra-api",
 						"read-all"
 					]
