@@ -1,5 +1,7 @@
 # Ultra CarService 
 
+![Picture of application](/deployment/endresult/UltraServiceClient.png)
+
 ## Contents
 - [Overview](#Overview)
 - [Requirements](#Requirements)
@@ -8,8 +10,6 @@
 - [Testing](#Testing)
 - [Frontend (Angular)](#Frontend (Angular))
 - [Usage](#Usage)
-
-![Picture of application](/deployment/endresult/UltraServiceClient.png)
 
 ## Overview
 A web application based on a restful CRUD API, that allows you to manage an Inventory of cars, with options to list, create, update and delete entrys. 
