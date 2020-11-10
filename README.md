@@ -46,12 +46,9 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
      - ``cd ./src/main/angular && ng serve --open``
 - Step 5: Access the service over ``http://localhost:4200``
 
-
-## Documentation
-- The java portion of project is compatible with java docs
-    - If you wish to generate that documentation, run the following command: ``mvn javadoc:javadoc`` in the project root
-    - The files can then be found under ``./target/site/apidocs`` in your project directory
-- Furthermore, precise documentation for using the API can be found under ``http://minikube:8080/swagger-ui/`` at runtime
+## Testing (Kubernetes)
+- Run integration tests over Newman:
+    - ``newman run ./src/test/newman/test_ulta_carservice.kubernetes.postman_collection.json``
 
 ## Testing (Local)
 - The project has two types of test already setup: 
@@ -64,9 +61,11 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
 - Unit Tests can be found under ``./src/test/java``
 - Running all Unit tests at once can be achieved by running the Test Suite ``TestAll.java``
 
-## Testing (Kubernetes)
-- Run integration tests over Newman:
-    - ``newman run ./src/test/newman/test_ulta_carservice.kubernetes.postman_collection.json``
+## Documentation
+- The java portion of project is compatible with java docs
+    - If you wish to generate that documentation, run the following command: ``mvn javadoc:javadoc`` in the project root
+    - The files can then be found under ``./target/site/apidocs`` in your project directory
+- Furthermore, precise documentation for using the API can be found under ``http://minikube:8080/swagger-ui/`` at runtime
 
 ## Usage of PostgreSQL in Docker
 - Get PostgreSQL going: ``docker-compose up -d``
