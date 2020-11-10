@@ -23,13 +23,29 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
 - Kubernetes
 - Minikube
 
-## Installation
+## Installation (Kubernetes)
 - Step 1: Install all dependencies named above (example given using chocolaty)
     - ``choco install openjdk:11 maven docker nodejs minikube``
     - ``npm intsall -g typescript angular``
-- Step 2: Run the deployment script ``bash ./deploy.sh``
-- Step 3: The webapp should now be running at ``http://minikube/list-all``
-- Step 4: If failed run: ``eval "$(minikube docker-env --shell=bash)"`` and repeat steps 2-3
+- Step 2: Add ``ultraservicespringboot`` to the host file and point it towards the minikube ip
+    - Example: ``192.168.99.107    ultraservicespringboot``
+- Step 3: Run the deployment script ``bash ./deploy.sh``
+- Step 4: The webapp should now be running at ``http://minikube/list-all``
+- Step 5: If failed run: ``eval "$(minikube docker-env --shell=bash)"`` and repeat steps 2-3
+
+## Installation (Local)
+- Step 1: Install all dependencies named above (example given using chocolaty)
+    - ``choco install openjdk:11 maven docker nodejs minikube``
+    - ``npm intsall -g typescript angular``
+- Step 2: Add ``ultraservicespringboot`` to the host file and point it towards localhost
+    - Example: ``localhost    ultraservicespringboot``
+- Step 3: Pull up docker-compose file (to get postgres to run)
+    - ``docker-compose up -d -f ./deploymen/docker-compose-local.yml``
+- Step 4: Run Angular and Spring Boot
+    - ``mvn package && java -jar ./target/car-service-0.0.1-SNAPSHOT.jar``
+     - ``cd ./src/main/angular && ng serve --open``
+- Step 5: Access the service over ``http://localhost:4200``
+
 
 ## Documentation
 - The java portion of project is compatible with java docs
@@ -37,14 +53,20 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
     - The files can then be found under ``./target/site/apidocs`` in your project directory
 - Furthermore, precise documentation for using the API can be found under ``http://minikube:8080/swagger-ui/`` at runtime
 
-## Testing
+## Testing (Local)
 - The project has two types of test already setup: 
     - Integration tests using Newman (/Postman)
     - Unit tests using Junit
-- The Newman tests can be found under ``./src/test/newman/test_ulta_carservice.postman_collection.json``
-- The integration tests can be run using ``newman run ./src/test/newman/test_ulta_carservice.postman_collection.json`` from the project root
+- Newman test:
+    - Generate local newman tests with: ``cd ./deployments && bash ./generate_local_newman_test.sh``  
+    - The Newman tests can then be found under ``./src/test/newman/test_ulta_carservice.postman_collection.json``
+    - The integration tests can be run using ``newman run ./src/test/newman/test_ulta_carservice.postman_collection.json`` from the project root
 - Unit Tests can be found under ``./src/test/java``
 - Running all Unit tests at once can be achieved by running the Test Suite ``TestAll.java``
+
+## Testing (Kubernetes)
+- Run integration tests over Newman:
+    - ``newman run ./src/test/newman/test_ulta_carservice.kubernetes.postman_collection.json``
 
 ## Usage of PostgreSQL in Docker
 - Get PostgreSQL going: ``docker-compose up -d``
@@ -52,7 +74,7 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
     - Step 1: ``docker exec -it ultra-database bash``
     - Step 2: ``psql -U postgres``
     
-## Frontend (Angular)
+## Usage Frontend (Angular)
 - To access to front end (with Spring boot and Postgres running in the background):
     - navigate to ``./src/main/angular`` from the root directory
     - make sure angular & typescript are installed 
@@ -64,7 +86,7 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
     - Create car entries: ``http://minikube/create``
     - Edit existing car entries: ``http://minikube/edit``
 
-## Usage
+## Usage Backend
 - General Overview:
     - **C**reate entries: POST-Request to ``http://minikube/backend/ultra-api/create-car`` and a JSON Object in the body containing the following items:
         - name
