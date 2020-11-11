@@ -1,0 +1,10 @@
+name: Build and test Springboot
+on: push
+jobs:
+  test_push_request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: stCarolas/setup-maven@v3
+      - run: mvn package
+    
