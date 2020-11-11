@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build the docker-compose stack
-      run: docker-compose up -d
+      run: cd ./deployment && docker-compose up -d
     - uses: matt-ball/newman-action@master
       with:
         collection: ./src/test/newman/test_ulta_carservice.docker_compose.postman_collection.json
