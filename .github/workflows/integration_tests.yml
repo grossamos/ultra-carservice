@@ -20,7 +20,7 @@ jobs:
         java-version: '11'
     - name: Set up Maven
       uses: stCarolas/setup-maven@v3
-    - run: mvn package clean
+    - run: mvn package
     - name: Build the docker-compose stack
       run: cd ./deployment && docker-compose up -d
     - uses: matt-ball/newman-action@master
