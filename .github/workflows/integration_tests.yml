@@ -14,7 +14,7 @@ jobs:
     - run: cd ./src/main/angular && npm ci
     - run: cd ./src/main/angular && npm run test:ci
     - run: cd ./src/main/angular && npm run build:ci
-    - run: cp ./src/main/angular/dist/angular/* ./target/angular
+    - run: mkdir ./target && mkdir ./target/angular cp ./src/main/angular/dist/angular/* ./target/angular
     - uses: actions/setup-java@v1
       with:
         java-version: '11'
