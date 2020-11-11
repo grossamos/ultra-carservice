@@ -15,7 +15,8 @@ jobs:
     - run: mvn package
     - name: Build the docker-compose stack
       run: docker-compose -f ./deployment/docker-compose-local.yml up -d
-    - run: exec ${"java -jar ./target/car-service-0.0.1-SNAPSHOT.jar"}
+    - run: java -jar ./target/car-service-0.0.1-SNAPSHOT.jar &
+    - run: sleep 20
     - uses: matt-ball/newman-action@master
       with:
         collection: ./src/test/newman/test_ulta_carservice.docker_compose.postman_collection.json
