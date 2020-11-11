@@ -1,7 +1,7 @@
 version: "3"
 services:
-  ultra-database:
-    container_name: ultra-database
+  postgres-k8s-service:
+    container_name: postgres-k8s-service
     image: postgres
     ports:
     - 5432:5432
@@ -20,7 +20,7 @@ services:
     ports:
     - 8080:8080
     depends_on:
-      - ultra-database
+      - postgres-k8s-service
     networks:
       - backend-stuff
   ultra-car-service-frontend:

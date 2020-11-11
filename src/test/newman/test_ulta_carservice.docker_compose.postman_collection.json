@@ -1,0 +1,527 @@
+{
+	"info": {
+		"_postman_id": "2fda75da-f862-4a11-92d5-2f87df724021",
+		"name": "test_ulta_carservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Read-all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8ff44d1-59c7-4d05-bee9-bda119bcffd5",
+						"exec": [
+							"pm.test(\"Successful GET (all) request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/read-all",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"read-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Valid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a7ce399-7096-4771-8909-f4ecef225a11",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"let newId = parseInt(pm.response.text().slice(9));\r",
+							"\r",
+							"pm.globals.set(\"idOfCar\", newId);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "873dbd9e-06a4-45d3-8d89-61fe26c32b31",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"SD-Klasse\",\r\n        \"year\": \"1766\",\r\n        \"brand\" : \"Daimler\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/create-car",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"create-car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Invalid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cd3c2be7-521f-4b75-908c-2253acbaf759",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"ultra-blob\":\"2020\",\r\n\"no_attributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/create-car",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"create-car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Valid Car Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b97810c9-ae52-4fd1-8c72-71ef9e03ad8a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2003\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/update-car?id={{idOfCar}}",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"update-car"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{idOfCar}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Invalid (ID) Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d58bc4b9-40c6-4eb2-8680-8d0928f453d3",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/update-car?id=972999",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"update-car"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "972999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Invalid (Attributes) Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "80df2560-5937-4123-906c-e20408b472c4",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a46ffd6d-25a2-4423-aa00-6f4dba690154",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"ultra-blob\":\"2020\",\r\n\"no_attributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/update-car?id={{idOfCar}}",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"update-car"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{idOfCar}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Valid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "119dce63-338b-4b39-91a4-bf853e7c8e91",
+						"exec": [
+							"pm.test(\"Returned data contains info from creation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.m_automobileAttributes[\"serial\"]).to.eql(\"kjhgfxcbn\");\r",
+							"});\r",
+							"pm.test(\"Returned data contains info from update\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.m_automobileAttributes[\"year\"]).to.eql(\"2003\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/read-single?id={{idOfCar}}",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"read-single"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{idOfCar}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Invalid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1636ad36-ec64-4746-a49f-cb2ccbbbf8a3",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/read-single?id=972999",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"read-single"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "972999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Valid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00532993-7d7f-4849-a78f-d0aba2ebe611",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/delete-car?id={{idOfCar}}",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"delete-car"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{idOfCar}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Invalid Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "779f3a70-56dc-4a21-af3e-4672e8747532",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"m_automobileAttributes\": {\r\n        \"name\": \"ultra car\",\r\n        \"year\": \"2020\",\r\n        \"serial\": \"33xb92u4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://minikube/backend/ultra-api/delete-car?id=972999",
+					"protocol": "http",
+					"host": [
+						"minikube"
+					],
+					"path": [
+						"backend",
+						"ultra-api",
+						"delete-car"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "972999"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
