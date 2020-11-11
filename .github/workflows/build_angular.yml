@@ -21,5 +21,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - run: cd ./src/main/angular && npm ci
     - run: cd ./src/main/angular && npm run test:ci
     - run: cd ./src/main/angular && npm run build:ci
