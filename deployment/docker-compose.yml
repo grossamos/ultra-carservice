@@ -15,7 +15,7 @@ services:
   ultra-car-service-backend:
     container_name: ultra-carservice-back
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile-springboot
     ports:
     - 8080:8080
@@ -26,7 +26,7 @@ services:
   ultra-car-service-frontend:
     container_name: ultra-carservice-front
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile-angular
     ports:
       - 80:80
