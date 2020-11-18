@@ -17,17 +17,18 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
 
 ## Requirements
 - JVM and JRE running on Java 11 (or higher)
-- Maven
-- Docker
-- NodeJs
-- Angular
-- Typescript
+- Helm (Prometheus, Grafana)
 - Kubernetes
+- Typescript
 - Minikube
+- Angular
+- NodeJs
+- Docker
+- Maven
 
 ## Installation (Kubernetes)
 - Step 1: Install all dependencies named above (example given using chocolaty)
-    - ``choco install openjdk:11 maven docker nodejs minikube``
+    - ``choco install openjdk:11 maven docker nodejs minikube helm``
     - ``npm intsall -g typescript angular``
 - Step 2: Add ``ultraservicespringboot`` to the host file and point it towards the minikube ip
     - Example: ``192.168.99.107    ultraservicespringboot``
@@ -62,6 +63,18 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
     - The integration tests can be run using ``newman run ./src/test/newman/test_ulta_carservice.postman_collection.json`` from the project root
 - Unit Tests can be found under ``./src/test/java``
 - Running all Unit tests at once can be achieved by running the Test Suite ``TestAll.java``
+
+## Monitoring
+- Monitoring for this project utilizes prometheus to scan the backend applications and Grafana to visualize these
+- The prometheus ui Dashboard can be accessed by:
+    - port-forwarding the prometheus-operator pod: ``kubectl port-forward -n monitoring-ns kubectl port-forward -n monitoring-ns prometheus-monitoring-grafana-6bc57bcb-4r9mv 3000 9090``
+    - viewing it at: ``http://localhost:9090``
+- The Grafana Dashboard can be accessed by:
+    - port-forwarding the grafana pod: ``kubectl port-forward -n monitoring-ns prometheus-prometheus-monitoring-prom-prometheus-0 9090``
+    - viewing it at: ``http://localhost:3000``
+- A pre built dashboard for Grafana can be found under: ``./deployment/grafana.json``
+    - import it by going to ``http://localhost:3000/dashboard/import``
+    - Pressing on ``import`` and selecting the aforementioned file
 
 ## Documentation
 - The java portion of project is compatible with java docs
