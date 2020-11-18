@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: b-springboot-metrics-servicemonitor
+  namespace: monitoring-ns
+  labels:
+    app: springboot-k8s-service
+    release: prometheus-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: springboot-k8s-service
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+    - port: monitor-port
+      targetPort: 8080
+      scheme: http
+      path: "/actuator/prometheus"
+      interval: 5s

@@ -27,14 +27,6 @@ public class CarServiceApplication {
 	}
 
 	public static void main(String[] args) {
-		try {
-			InetAddress giriAddress = InetAddress.getByName("postgres-k8s-service");
-			System.out.println(giriAddress.getHostAddress());
-		} catch (UnknownHostException e) {
-			System.out.println("FUUUUCKKKKKKKK");
-			e.printStackTrace();
-		}
-
 		SpringApplication.run(CarServiceApplication.class, args);
 	}
 

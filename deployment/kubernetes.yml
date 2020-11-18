@@ -24,7 +24,7 @@ kind: Service
 metadata:
   name: angular-k8s-service
   labels:
-    name: angular-k8s-deployment
+    name: angular-k8s-service
 spec:
   ports:
     - nodePort: 30170
@@ -120,10 +120,14 @@ kind: Service
 metadata:
   name: springboot-k8s-service
   labels:
-    name: springboot-k8s-deployment
+    app: springboot-k8s-service
+    name: springboot-k8s-service
+    release: prometheus-monitoring
+
 spec:
   ports:
     - nodePort: 30171
+      name: monitor-port
       port: 8080
       targetPort: 8080
       protocol: TCP
