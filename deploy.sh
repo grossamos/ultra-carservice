@@ -21,6 +21,13 @@ kubectl apply -f ./deployment/kubernetes-config.yml
 kubectl delete -f ./deployment/kubernetes.yml
 kubectl apply -f ./deployment/kubernetes.yml
 
+# Setup Prometheus
+kubectl apply -f ./deployment/kubernetes-prometheus.yml
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+helm install prometheus-monitoring stable/prometheus-operator --namespace monitoring-ns
+
+
 # Success message
 URL=$(minikube service angular-k8s-service --url)
 
