@@ -7,22 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: cd ./src/main/angular && npm ci
-    - run: cd ./src/main/angular && npm run test:ci
-    - run: cd ./src/main/angular && npm run build:ci
-    - run: mkdir ./target && mkdir ./target/angular && cp ./src/main/angular/dist/angular/* ./target/angular
+#   - run: sudo echo "127.0.0.1  postgres-k8s-service" >> /etc/hosts
     - uses: actions/setup-java@v1
       with:
         java-version: '11'
     - name: Set up Maven
       uses: stCarolas/setup-maven@v3
-    - run: mvn package clean
+    - run: mvn package
     - name: Build the docker-compose stack
-      run: cd ./deployment && docker-compose up -d
+      run: docker-compose -f ./deployment/docker-compose-local.yml up -d
+    - run: java -jar ./target/car-service-0.0.1-SNAPSHOT.jar &
+    - run: sleep 20
     - uses: matt-ball/newman-action@master
       with:
         collection: ./src/test/newman/test_ulta_carservice.docker_compose.postman_collection.json
