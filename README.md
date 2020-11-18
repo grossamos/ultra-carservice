@@ -1,13 +1,14 @@
 # Ultra CarService 
 
-![Picture of application](/deployment/endresult/UltraServiceClient.png)
+![Picture of application](/.github/images/UltraServiceClient.png)
 
 ## Contents
 - [Overview](#Overview)
 - [Requirements](#Requirements)
 - [Installation](#Installation)
-- [Documentation](#Documentation)
 - [Testing](#Testing)
+- [Monitoring](#Monitoring)
+- [Documentation](#Documentation)
 - [Frontend (Angular)](#Frontend (Angular))
 - [Usage](#Usage)
 
