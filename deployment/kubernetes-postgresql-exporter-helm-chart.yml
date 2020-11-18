@@ -1,0 +1,16 @@
+serviceMonitor:
+  enabled: true
+  namespace: monitoring-ns
+  interval: 10s
+  labels:
+   release: prometheus-monitoring
+
+config:
+  datasource:
+    host: postgres-k8s-service.default
+    user: postgres
+    password: password
+    port: "5432"
+    database: 'ultradb'
+    sslmode: disable
+  datasourceSecret: {}

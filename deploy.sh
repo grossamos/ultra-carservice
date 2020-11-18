@@ -22,9 +22,11 @@ kubectl delete -f ./deployment/kubernetes.yml
 kubectl apply -f ./deployment/kubernetes.yml
 
 # Setup Prometheus
+kubectl create namespace monitoring-ns
 kubectl apply -f ./deployment/kubernetes-prometheus.yml
 helm repo add stable https://charts.helm.sh/stable
 helm repo update
+helm install psql-exporter -f ./deployment/kubernetes-postgresql-exporter-helm-chart.yml prometheus-community/prometheus-postgres-exporter
 helm install prometheus-monitoring stable/prometheus-operator --namespace monitoring-ns
 
 

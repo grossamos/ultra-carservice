@@ -19,6 +19,20 @@
   "links": [],
   "panels": [
     {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 26,
+      "panels": [],
+      "title": "Title",
+      "type": "row"
+    },
+    {
       "content": "<img src=\"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F10j1sRnpiklXB6%2Fgiphy.gif&f=1&nofb=1\"/>",
       "datasource": null,
       "fieldConfig": {
@@ -31,7 +45,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 8,
       "mode": "html",
@@ -54,7 +68,7 @@
         "h": 4,
         "w": 11,
         "x": 6,
-        "y": 0
+        "y": 1
       },
       "id": 12,
       "mode": "html",
@@ -77,7 +91,7 @@
         "h": 4,
         "w": 4,
         "x": 20,
-        "y": 0
+        "y": 1
       },
       "id": 10,
       "mode": "html",
@@ -86,6 +100,20 @@
       "title": "",
       "transparent": true,
       "type": "text"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 24,
+      "panels": [],
+      "title": "JVM + Sprinboot",
+      "type": "row"
     },
     {
       "datasource": null,
@@ -114,7 +142,7 @@
         "h": 7,
         "w": 3,
         "x": 0,
-        "y": 4
+        "y": 6
       },
       "id": 18,
       "options": {
@@ -173,7 +201,7 @@
         "h": 7,
         "w": 9,
         "x": 3,
-        "y": 4
+        "y": 6
       },
       "id": 20,
       "options": {
@@ -226,7 +254,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 4
+        "y": 6
       },
       "hiddenSeries": false,
       "id": 16,
@@ -342,7 +370,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 14,
@@ -417,6 +445,187 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 22,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 23
+          },
+          "hiddenSeries": false,
+          "id": 28,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pluginVersion": "7.0.3",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(process_cpu_seconds_total[5m])",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "CPU usage",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percentunit",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ns"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 3,
+            "x": 12,
+            "y": 23
+          },
+          "id": 30,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "vertical",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "pluginVersion": "7.0.3",
+          "targets": [
+            {
+              "expr": "avg(process_start_time_seconds)",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Average start time",
+          "type": "stat"
+        }
+      ],
+      "title": "PostgreSQL",
+      "type": "row"
     }
   ],
   "refresh": "10s",
@@ -446,5 +655,5 @@
   "timezone": "",
   "title": "Ultra Service Monitor",
   "uid": "5kLi6ToGz",
-  "version": 7
+  "version": 2
 }
