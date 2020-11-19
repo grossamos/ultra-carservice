@@ -1,6 +1,6 @@
 name: Run integration tests
 on:
-  push:
+  pull:
     branches: [ master ]
 jobs:
   newman_test:
