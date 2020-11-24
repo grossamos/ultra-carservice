@@ -2,7 +2,8 @@
 body{
   background-color: #ffc0eb;
   animation: bgColor 5s infinite linear;
-  font-family: 'Montserrat', sans-serif;;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
 }
 
 @keyframes bgColor {

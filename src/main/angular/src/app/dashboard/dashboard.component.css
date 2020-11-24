@@ -1,13 +1,21 @@
 .dashboard_div {
+  transform: rotate(90deg);
   position: fixed;
-  bottom: 0;
-  background-color: white;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  margin-left: 20px;
+  left: 0;
+  background-color: #ffffff;
+  opacity: 50%;
+  border-width: 3px;
+  border-color: black;
+  border-style: solid;
+  border-radius-topleft: 4px;
+  border-radius-topright: 4px;
+  width: 600px;
+  top: 50%;
+  margin-left: -250px;
 }
 
 .dashboard_element {
   padding: 10px;
   float: left;
+  opacity: 100%;
 }

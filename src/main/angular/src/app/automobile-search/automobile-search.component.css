@@ -5,6 +5,18 @@
   padding-bottom: 20px;
 }
 
+.label_for_search{
+  font-size: 30px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.search_field_car_search{
+  background-color: white;
+  width: 70%;
+  padding: 15px;
+  font-size: 20px;
+}
+
 .result_pos_override{
   grid-column-start: 2;
   grid-column-end: 3;

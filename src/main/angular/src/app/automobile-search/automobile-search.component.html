@@ -1,13 +1,19 @@
 
   <div class="main-content result_pos_override">
     <div class="search_pos_override">
-      <h4><label for="search-box">Automobile Search</label></h4>
-      <input #searchBox id="search-box" class="input-field" (input)="search(searchBox.value)" />
+      <h4><label for="search-box" class="label_for_search">Automobile Search</label></h4>
+      <input #searchBox id="search-box" class="input-field search_field_car_search" (input)="search(searchBox.value)" />
     </div>
-    <div *ngIf="foundAuto$" class="auto-item">
+    <div *ngIf="foundAuto$; else defaultNotFound" class="auto-item">
       <h1 class="title_stuff">Auto: {{foundAuto$.m_id}} </h1>
       <div *ngFor="let attr of foundAuto$.m_automobileAttributes | keyvalue">
         <p class="content_stuff">{{attr.key | uppercase}} : {{attr.value}}</p>
       </div>
     </div>
+    <ng-template #defaultNotFound>
+      <div class="auto-item">
+        <h1 class="title_stuff">No entries</h1>
+        <p class="content_stuff">Start typing or enter different ID</p>
+      </div>
+    </ng-template>
   </div>

@@ -20,8 +20,8 @@ export class AutomobileCreateComponent implements OnInit {
     this.myForm = this.fb.group({
       m_automobileAttributes: this.fb.array([])
     });
-    this.addNewItem('', 'Name');
-    this.addNewItem('', 'Model');
+    this.addNewItem('', 'name');
+    this.addNewItem('', 'model');
   }
 
   get autoAttributesForms(): FormArray{
@@ -51,5 +51,9 @@ export class AutomobileCreateComponent implements OnInit {
       }
     }
     this.ultraService.addSomething(submittedInfoAsAutomobile);
+    for (let i = 0; i < this.autoAttributesForms.length + 1; i++){
+     this.autoAttributesForms.removeAt(0);
+   }
+    this.ngOnInit();
   }
 }

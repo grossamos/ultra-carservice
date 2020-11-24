@@ -4,14 +4,15 @@ mvn package
 cd ./src/main/angular/dist/angular
 npm run build --prod
 cp -r ./* ../../../../../target/angular/
+cd ../../../../../
 
 # Start minikube
+minikube delete
 minikube start
 minikube addons enable ingress
 eval "$(minikube docker-env --shell=bash)"
 
 # Build Docker images
-cd ../../../../../
 docker build -f ./deployment/Dockerfile-angular -t ultra-service-angular .
 docker build -f ./deployment/Dockerfile-springboot -t ultra-service-springboot .
 

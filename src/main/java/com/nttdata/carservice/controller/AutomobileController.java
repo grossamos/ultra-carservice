@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/ultra-api")
-@CrossOrigin(origins = "*")
+@CrossOrigin("*")
 @EnableSwagger2
 public class AutomobileController {
     //TODO: change input from Automobile to Hashmap (more intuitive) without Instantiation from new (to stay cool with DI)

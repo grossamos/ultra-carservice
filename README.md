@@ -41,7 +41,7 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
 - Step 1: Install all dependencies named above (example given using chocolaty)
     - ``choco install openjdk:11 maven docker nodejs minikube``
     - ``npm intsall -g typescript angular``
-- Step 2: Add ``ultraservicespringboot`` to the host file and point it towards localhost
+- Step 2: Add ``ultraservicespringboot`` and ``postgres-k8s-service`` to the host file and point them towards localhost
     - Example: ``localhost    ultraservicespringboot``
 - Step 3: Pull up docker-compose file (to get postgres to run)
     - ``docker-compose up -d -f ./deploymen/docker-compose-local.yml``

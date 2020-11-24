@@ -1,4 +1,4 @@
-<div class="main-content">
+<div (focus)="updateCars()" class="main-content">
     <div *ngFor="let auto of myAutomobiles" class="auto-item">
       <div *ngIf="auto">
         <h1 class="title_stuff">Auto: {{auto.m_id}}</h1>
