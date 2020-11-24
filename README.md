@@ -10,6 +10,7 @@
 - [Monitoring](#Monitoring)
 - [Documentation](#Documentation)
 - [Frontend (Angular)](#Frontend (Angular))
+- [Frontend (Flutter)](#Frontend (Flutter))
 - [Usage](#Usage)
 
 ## Overview
@@ -26,6 +27,10 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
 - NodeJs
 - Docker
 - Maven
+- (for app)
+    - Android Studio
+    - Flutter sdk
+    - Dart
 
 ## Installation (Kubernetes)
 - Step 1: Install all dependencies named above (example given using chocolaty)
@@ -100,6 +105,15 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
     - Search for individual cars: ``http://minikube/search``
     - Create car entries: ``http://minikube/create``
     - Edit existing car entries: ``http://minikube/edit``
+    
+## Usage Frontend (Flutter)
+- Step 1: Install prerequisites
+    - Android Studio (needed to build project) ~ don't forget to install the flutter plugin
+    - Dart 
+    - Flutter sdk
+- Step 2: Open app folder ``./src/main/flutter`` in Android Studio
+- Step 3: Select physical or virtual device and press ``Run``
+    - (in order to access the backend, the springboot application has to be running on port 8080 on an ip accessible by the device running the app)
 
 ## Usage Backend
 - General Overview:
