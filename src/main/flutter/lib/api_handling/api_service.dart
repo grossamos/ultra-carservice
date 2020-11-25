@@ -4,9 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
+  static String ip_of_service;
+
   Future<List> getList() async {
     http.Response response = await http.get(
-        "http://192.168.0.104:8080/ultra-api/read-all",
+        "http://$ip_of_service/ultra-api/read-all",
         headers: {
           "Accept" : "application/json"
         }
@@ -17,7 +19,7 @@ class ApiService {
 
   Future searchAuto(int id) async {
     http.Response response = await http.get(
-      'http://192.168.0.104:8080/ultra-api/read-single?id=$id',
+      'http://$ip_of_service/ultra-api/read-single?id=$id',
       headers: {
         "Accept" : "application/json"
       }
@@ -31,7 +33,7 @@ class ApiService {
 
   void saveAuto(Map automobileAsMap) async {
     http.Response response = await http.post(
-        'http://192.168.0.104:8080/ultra-api/create-car',
+        'http://$ip_of_service/ultra-api/create-car',
         headers: {
           "Content-Type" : "application/json"
         },
@@ -41,7 +43,7 @@ class ApiService {
 
   void updateAuto(Map automobileAsMap, int id) async {
     http.Response response = await http.put(
-      'http://192.168.0.104:8080/ultra-api/update-car?id=$id',
+      'http://$ip_of_service/ultra-api/update-car?id=$id',
       headers: {
         "Content-Type" : "application/json"
       },

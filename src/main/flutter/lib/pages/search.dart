@@ -31,7 +31,7 @@ class SearchSinglePageState extends State<SearchSinglePage>{
           }
           else{
             return SingleChildScrollView(
-                child: RenderAdapterListDataTable.getDataTable([snapshot.data])
+                child: RenderAdapterListDataTable.listToExpandedView([snapshot.data], () => setState((){}))
             );
           }
         },

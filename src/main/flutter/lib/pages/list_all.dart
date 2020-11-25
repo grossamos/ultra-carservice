@@ -26,7 +26,10 @@ class GetAllPageState extends State<GetAllPage>{
           }
           else{
             return SingleChildScrollView(
-                child: RenderAdapterListDataTable.getDataTable(snapshot.data)
+                child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: RenderAdapterListDataTable.listToExpandedView(snapshot.data, () => setState((){})),
+                ) 
             );
           }
         },

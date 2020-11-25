@@ -1,55 +1,72 @@
 import 'package:flutter/material.dart';
 
 class RenderAdapterListDataTable {
-  static const standardDataColumn = <DataColumn>[
-    DataColumn(
-        label: Text(
-      'Id',
-    )),
-    DataColumn(
-        label: Text(
-      'Name',
-    )),
-    DataColumn(
-        label: Text(
-      'Attributes',
-    ))
-  ];
+  static List<UltraCardListItem> autosAsItems;
 
-  static getDataTable(List list) {
-    var dataRows = <DataRow>[];
-    for (var auto in list) {
-      dataRows.add(listItemToDataCell(auto));
+  static List<UltraCardListItem> listToItems(List autos){
+    List<UltraCardListItem> returnList = [];
+    for (var auto in autos){
+      returnList.add(UltraCardListItem(auto['m_id'], auto['m_automobileAttributes'], expanded: (autos.length == 1)));
     }
-    return DataTable(columns: standardDataColumn, rows: dataRows);
+    return returnList;
   }
 
-  static listItemToDataCell(auto) {
-    // Process Attributes, to display as list
-    Map attributesAsMap = auto['m_automobileAttributes'];
-    List attributesAsList = new List();
-    String attributesAsString = '';
-    for (var attributeKey in attributesAsMap.keys) {
-      attributesAsList.add([attributeKey, attributesAsMap[attributeKey]]);
-      attributesAsString += attributeKey[0].toUpperCase() + attributeKey.substring(1)  + ' = ' + attributesAsMap[attributeKey] + '\n';
-    }
-    ListView attributesListView = ListView.builder(
-      itemCount: attributesAsList.length,
-      itemBuilder: (context, index) {
-        return Text(
-            attributesAsList[index][0][0].toUpperCase() + attributesAsList[index][0].substring(1) + ":\t" + attributesAsList[index][0]);
-      },
-    );
-
-    // return actual Data row
-    return DataRow(cells: <DataCell>[
-      DataCell(
-        Text(auto['m_id'].toString()),
+  static listToExpandedView(List autos, Function() setState) {
+    if (autosAsItems == null || (autosAsItems != null && autos[0]['m_id'] != autosAsItems[0].id || autos.length != autosAsItems.length ))
+      autosAsItems = listToItems(autos);
+    return SingleChildScrollView(
+      child: Container(
+        child: ExpansionPanelList(
+          expansionCallback: (int index, bool isExpanded) {
+            autosAsItems[index].expanded = !isExpanded;
+            setState();
+          },
+          children: autosAsItems.map<ExpansionPanel>((UltraCardListItem item) {
+            List<DataRow> itemAttributesAsRows = [];
+            for (String key in item.attributes.keys.toList()) {
+              itemAttributesAsRows.add(DataRow(cells: [
+                DataCell(Text(key)),
+                DataCell(Text(item.attributes[key]))
+              ]));
+            }
+            return ExpansionPanel(
+              headerBuilder: (BuildContext context, bool isExpanded) {
+                return ListTile(
+                  leading: Icon(Icons.directions_car),
+                  title: Text(item.id.toString()),
+                );
+              },
+              body: ListTile(
+                subtitle: DataTable(
+                  columns: [
+                    DataColumn(label: Text('Key')),
+                    DataColumn(label: Text('Value')
+                    )
+                  ],
+                  rows: itemAttributesAsRows,
+                ),
+              ),
+              isExpanded: item.expanded,
+            );
+          }).toList(),
+        ),
       ),
-      DataCell(Text(auto['m_automobileAttributes']['name'].toString())),
-      DataCell(
-        Text(attributesAsString),
-      )
-    ]);
+    );
   }
+}
+
+class UltraCardListItem {
+  UltraCardListItem(int id, Map attributes, {bool expanded}) {
+    this.id = id;
+    this.attributes = attributes;
+    if (expanded == null) {
+      this.expanded = expanded;
+    } else {
+      this.expanded = false;
+    }
+  }
+
+  int id;
+  Map attributes;
+  bool expanded = false;
 }
