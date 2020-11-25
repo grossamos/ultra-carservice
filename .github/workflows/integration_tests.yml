@@ -1,7 +1,6 @@
 name: Run integration tests
 on:
-  pull:
-    branches: [ master ]
+  watch:
 jobs:
   newman_test:
     runs-on: ubuntu-latest
