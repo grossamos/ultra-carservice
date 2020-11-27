@@ -7,38 +7,35 @@ class GetAllPage extends StatefulWidget {
   GetAllPageState createState() {
     return GetAllPageState();
   }
-
 }
 
-class GetAllPageState extends State<GetAllPage>{
+class GetAllPageState extends State<GetAllPage> {
   @override
   Widget build(BuildContext context) {
     ApiService ultraService = ApiService();
-    return  Container(
+    return Container(
       width: double.infinity,
       child: FutureBuilder(
         future: ultraService.getList(),
-        builder: (context, snapshot){
-          if (snapshot.data == null){
+        builder: (context, snapshot) {
+          if (snapshot.data == null) {
             return Container(
               child: Text("Loading..."),
             );
-          }
-          else{
+          } else {
             return RefreshIndicator(
               onRefresh: () async {
                 await Future.delayed(Duration(seconds: 2)).then((onvalue) {
-                  setState(() {
-                  });
+                  setState(() {});
                 });
                 return 'Refreshed';
               },
               child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: RenderAdapterListDataTable.listToExpandedView(snapshot.data, () => setState((){})),
-                  ) 
-              ),
+                padding: EdgeInsets.all(20.0),
+                child: RenderAdapterListDataTable.listToExpandedView(
+                    snapshot.data, () => setState(() {})),
+              )),
             );
           }
         },

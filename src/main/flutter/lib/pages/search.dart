@@ -10,31 +10,28 @@ class SearchSinglePage extends StatefulWidget {
 }
 
 class SearchSinglePageState extends State<SearchSinglePage> {
-  int _givenId;
+  String _givenKey;
   ApiService ultraService = ApiService();
   final _formKey = GlobalKey<FormState>();
 
-  Widget _onSubmit(int id) {
-    if (id == null) {
+  Widget _onSubmit(String key) {
+    if (key == null) {
       return Container();
     }
-    return Container(
-      width: double.infinity,
-      child: FutureBuilder(
-        future: ultraService.searchAuto(id),
+    return FutureBuilder(
+        future: ultraService.properSearchAuto(key),
         builder: (context, snapshot) {
           if (snapshot.data == null) {
             return Container(
               child: Text("No automobiles with that Id found"),
             );
-          } else {
-            return SingleChildScrollView(
-                child: RenderAdapterListDataTable.listToExpandedView(
-                    [snapshot.data], () => setState(() {})));
           }
-        },
-      ),
-    );
+          return Expanded(
+            child: SingleChildScrollView(
+                child: RenderAdapterListDataTable.listToExpandedView(
+                    snapshot.data, () => setState(() {}))),
+          );
+        });
   }
 
   @override
@@ -51,19 +48,13 @@ class SearchSinglePageState extends State<SearchSinglePage> {
                 key: _formKey,
                 child: ListTile(
                     title: TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: 'Id of Automobile'),
+                      decoration:
+                          const InputDecoration(hintText: 'Id of Automobile'),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter an id';
-                        }
-                        // ignore: deprecated_member_use
-                        else if (int.parse(value.toString(),
-                                onError: (e) => null) ==
-                            null) {
-                          return 'Id has to be an int';
                         } else {
-                          _givenId = int.parse(value.toString());
+                          _givenKey = value.toString();
                           return null;
                         }
                       },
@@ -82,7 +73,7 @@ class SearchSinglePageState extends State<SearchSinglePage> {
           SizedBox(
             height: 20.0,
           ),
-          _onSubmit(_givenId)
+          _onSubmit(_givenKey)
         ],
       ),
     );

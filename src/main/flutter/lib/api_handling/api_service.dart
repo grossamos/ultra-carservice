@@ -2,11 +2,28 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   static String ip_of_service;
 
+  static void setIp(String ip) async{
+    print("hey!");
+    ip_of_service = ip;
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString("ip", ip);
+    print(preferences.getString("ip"));
+  }
+
+  static void loadIp() async{
+    //doesn't work as of now
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    ip_of_service = preferences.getString("ip");
+    print(preferences.getString("ip"));
+  }
+
   Future<List> getList() async {
+    //doesn't work, sadly :(
     http.Response response = await http.get(
         "http://$ip_of_service/ultra-api/read-all",
         headers: {
@@ -17,7 +34,7 @@ class ApiService {
     return  automobileList;
   }
 
-  Future searchAuto(int id) async {
+  Future searchAuto(int  id) async {
     http.Response response = await http.get(
       'http://$ip_of_service/ultra-api/read-single?id=$id',
       headers: {
@@ -28,6 +45,18 @@ class ApiService {
     if (responseAsObj['status'] == 400){
       return null;
     }
+    return responseAsObj;
+  }
+
+  Future properSearchAuto(String searchKey) async {
+    searchKey.replaceAll(" ", "%20");
+    http.Response response = await http.get(
+      'http://$ip_of_service/ultra-api/search?key=$searchKey',
+      headers: {
+        "Accept" : "application/json"
+      }
+    );
+
     return jsonDecode(response.body);
   }
 

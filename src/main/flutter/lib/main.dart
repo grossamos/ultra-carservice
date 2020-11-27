@@ -12,6 +12,7 @@ import 'package:ultra_car_service_app/pages/search.dart';
 import 'package:ultra_car_service_app/pages/update.dart';
 
 void main() {
+  ApiService.loadIp();
   runApp(MyApp());
 }
 

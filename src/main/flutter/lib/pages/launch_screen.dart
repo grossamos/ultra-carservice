@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ultra_car_service_app/api_handling/api_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LaunchPage extends StatefulWidget {
   Function() returnToMainState;
@@ -51,7 +52,8 @@ class _LaunchPageState extends State<LaunchPage> {
                             if (value.isEmpty) {
                               return 'Please enter an IP';
                             } else {
-                              ApiService.ip_of_service = value;
+                              ApiService.setIp(value);
+
                               return null;
                             }
                           }),
