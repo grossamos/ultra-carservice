@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Controller for Ultra-api.
@@ -202,6 +201,19 @@ public class AutomobileController {
         automobileRepo.save(automobile);
         m_automobileDataStorage.addAutomobile(automobile);
         return new ResponseEntity<>("oof, it worked?", HttpStatus.OK);
+    }
+
+    /**
+     * Improved search, with multiple answers
+     *
+     * @return ResponseEntity with answers
+     */
+    @ApiOperation(
+            value = "Search for entry"
+    )
+    @GetMapping(value = "/search")
+    public ArrayList<Automobile> seachForAutomobile(@RequestParam(value = "key") String searchInput){
+        return m_automobileDataStorage.searchForAutomobiles(searchInput);
     }
 
 }

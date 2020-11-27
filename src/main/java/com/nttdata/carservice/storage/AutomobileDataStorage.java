@@ -97,6 +97,35 @@ public class AutomobileDataStorage {
         return allAutomobiles;
     }
 
+    public ArrayList<Automobile> searchForAutomobiles(String search){
+        ArrayList<Automobile> allAutomobiles = getM_allAutomobiles();
+        ArrayList<Automobile> searchResults = new ArrayList<>();
+        for (Automobile automobile : allAutomobiles){
+            boolean shouldBeAdded = false;
+            //check if ids match
+            if (String.valueOf(automobile.getM_id()).equals(search)){
+                searchResults.add(0, automobile);
+                continue;
+            }
+            //check if search contains part of id
+            if (String.valueOf(automobile.getM_id()).contains(search)){
+                shouldBeAdded = true;
+            }
+            //check if attributes contain search
+            for (String attribute : automobile.getM_automobileAttributes().values()){
+                if (attribute.contains(search) && !shouldBeAdded) {
+                    shouldBeAdded = true;
+                    break;
+                }
+            }
+
+            if (shouldBeAdded){
+                searchResults.add(automobile);
+            }
+        }
+        return searchResults;
+    }
+
     public Automobile getAutomobileFromID(int id){
         return m_automobileRepo.findById(id).get();
     }
