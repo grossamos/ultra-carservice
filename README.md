@@ -115,7 +115,6 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
 </td>
 </tr></table>    
 
-
     
 ## Usage Frontend (Flutter)
 - Step 1: Install prerequisites
