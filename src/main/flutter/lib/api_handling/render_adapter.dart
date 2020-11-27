@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ultra_car_service_app/api_handling/api_service.dart';
 
 class RenderAdapterListDataTable {
+  static ApiService ultraService = ApiService();
   static List<UltraCardListItem> autosAsItems;
 
   static List<UltraCardListItem> listToItems(List autos){
@@ -36,15 +38,39 @@ class RenderAdapterListDataTable {
                   title: Text(item.id.toString()),
                 );
               },
-              body: ListTile(
-                subtitle: DataTable(
-                  columns: [
-                    DataColumn(label: Text('Key')),
-                    DataColumn(label: Text('Value')
-                    )
-                  ],
-                  rows: itemAttributesAsRows,
-                ),
+              body: Column(
+                children: [
+                  ListTile(
+                    subtitle: DataTable(
+                      columns: [
+                        DataColumn(label: Text('Key')),
+                        DataColumn(label: Text('Value')
+                        )
+                      ],
+                      rows: itemAttributesAsRows,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Spacer(),
+                      FlatButton(
+                        onPressed: (){
+                          print("Ehhhm....");
+                          //force reload
+                          ultraService.deleteAuto(item.id);
+                          autosAsItems.remove(item);
+                          setState();
+                        },
+                        child: Text(
+                          'DELETE',
+                          style: TextStyle(
+                            color: Colors.red.shade600
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
               isExpanded: item.expanded,
             );

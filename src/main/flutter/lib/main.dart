@@ -21,6 +21,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(
             primaryColor: Colors.purple.shade900,
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: Colors.purple.shade600,
+            ),
             elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {

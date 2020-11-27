@@ -25,11 +25,20 @@ class GetAllPageState extends State<GetAllPage>{
             );
           }
           else{
-            return SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: RenderAdapterListDataTable.listToExpandedView(snapshot.data, () => setState((){})),
-                ) 
+            return RefreshIndicator(
+              onRefresh: () async {
+                await Future.delayed(Duration(seconds: 2)).then((onvalue) {
+                  setState(() {
+                  });
+                });
+                return 'Refreshed';
+              },
+              child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: RenderAdapterListDataTable.listToExpandedView(snapshot.data, () => setState((){})),
+                  ) 
+              ),
             );
           }
         },

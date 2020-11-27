@@ -18,37 +18,35 @@ class _UpdatePageState extends State<UpdatePage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          // width: 400.0,
-          // height: 80.0,
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(hintText: 'Value'),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter the Id of your Auto';
-                        } else {
-                          setState(() {
-                            idOfCar = int.parse(value.toString());
-                          });
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
-                  ElevatedButton(
-                    child: Text('Search'),
-                    onPressed: () {
-                      _formKey.currentState.validate();
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+          child: Card(
+            elevation: 5,
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  title: TextFormField(
+                    decoration: const InputDecoration(hintText: 'Value'),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter the Id of your Auto';
+                      } else {
+                        setState(() {
+                          idOfCar = int.parse(value.toString());
+                        });
+                        return null;
+                      }
                     },
-                  )
-                ],
+                  ),
+                    trailing: ElevatedButton(
+                      child: Text('Search'),
+                      onPressed: () {
+                        _formKey.currentState.validate();
+                      },
+                    )
+                ),
               ),
             ),
           ),
@@ -72,9 +70,9 @@ class _UpdatePageState extends State<UpdatePage> {
   }
 
   Widget getEditFromMap(
-    Map auto,
-    int id,
-  ) {
+      Map auto,
+      int id,
+      ) {
     if (auto == null && id == null) {
       return Container();
     } else if (auto == null) {
@@ -90,17 +88,7 @@ class _UpdatePageState extends State<UpdatePage> {
           automobileMap = null;
         }
       });
-      //   getEditForm(formKey, auto, context, () {
-      //   setState();
-      // }, () {
-      //   if (formKey.currentState.validate()) {
-      //     setState();
-      //     // ignore: deprecated_member_use
-      //     Scaffold.of(context).showSnackBar(SnackBar(content: Text('Saved')));
-      //     ultraService.updateAuto(auto, id);
-      //     auto = null;
-      //   }
-      // });
+
     }
   }
 }

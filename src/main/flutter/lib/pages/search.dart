@@ -7,32 +7,30 @@ class SearchSinglePage extends StatefulWidget {
   SearchSinglePageState createState() {
     return SearchSinglePageState();
   }
-
 }
 
-class SearchSinglePageState extends State<SearchSinglePage>{
+class SearchSinglePageState extends State<SearchSinglePage> {
   int _givenId;
   ApiService ultraService = ApiService();
   final _formKey = GlobalKey<FormState>();
 
-  Widget _onSubmit(int id){
-    if (id == null){
+  Widget _onSubmit(int id) {
+    if (id == null) {
       return Container();
     }
     return Container(
       width: double.infinity,
       child: FutureBuilder(
         future: ultraService.searchAuto(id),
-        builder: (context, snapshot){
-          if (snapshot.data == null){
+        builder: (context, snapshot) {
+          if (snapshot.data == null) {
             return Container(
               child: Text("No automobiles with that Id found"),
             );
-          }
-          else{
+          } else {
             return SingleChildScrollView(
-                child: RenderAdapterListDataTable.listToExpandedView([snapshot.data], () => setState((){}))
-            );
+                child: RenderAdapterListDataTable.listToExpandedView(
+                    [snapshot.data], () => setState(() {})));
           }
         },
       ),
@@ -41,45 +39,48 @@ class SearchSinglePageState extends State<SearchSinglePage>{
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
       child: Column(
         children: [
-          Container(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(hintText: 'Enter the Id of your Automobile'),
-                    validator: (value){
-                      if (value.isEmpty){
-                        return 'Please enter an id';
-                      }
-                      // ignore: deprecated_member_use
-                      else if (int.parse(value.toString(), onError: (e) => null) == null){
-                        return 'Id has to be an int';
-                      }
-                      else {
-                        _givenId = int.parse(value.toString());
-                        return null;
-                      }
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: ElevatedButton(
-                      onPressed: (){
-                        if (_formKey.currentState.validate()){
-                          setState(() { });
+          Card(
+            elevation: 5.0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Form(
+                key: _formKey,
+                child: ListTile(
+                    title: TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: 'Id of Automobile'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter an id';
+                        }
+                        // ignore: deprecated_member_use
+                        else if (int.parse(value.toString(),
+                                onError: (e) => null) ==
+                            null) {
+                          return 'Id has to be an int';
+                        } else {
+                          _givenId = int.parse(value.toString());
+                          return null;
+                        }
+                      },
+                    ),
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          setState(() {});
                         }
                       },
                       child: Text('Search'),
-                    ),
-                  )
-                ],
+                    )),
               ),
             ),
+          ),
+          SizedBox(
+            height: 20.0,
           ),
           _onSubmit(_givenId)
         ],

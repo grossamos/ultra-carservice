@@ -31,6 +31,15 @@ class ApiService {
     return jsonDecode(response.body);
   }
 
+  void deleteAuto(int id) async {
+    http.Response response = await http.delete(
+      'http://$ip_of_service/ultra-api/delete-car?id=$id',
+      headers: {
+        "Accept" : "application/json"
+      }
+    );
+  }
+
   void saveAuto(Map automobileAsMap) async {
     http.Response response = await http.post(
         'http://$ip_of_service/ultra-api/create-car',
