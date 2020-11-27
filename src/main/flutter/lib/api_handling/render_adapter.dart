@@ -38,7 +38,7 @@ class RenderAdapterListDataTable {
                   leading: IconButton(
                       icon: Icon(Icons.directions_car),
                     onPressed: (){
-                        Share.share("Hey, look at my cool car: http://$ApiService.ip_of_service/ultra-api/read-single?id=" +item.id.toString());
+                        Share.share("Hey, look at my cool car: http://${ApiService.ip_of_service}/ultra-api/read-single?id=" +item.id.toString());
                     },
                   ),
                   title: Text(item.id.toString()),
