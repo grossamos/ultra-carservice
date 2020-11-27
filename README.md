@@ -106,8 +106,8 @@ The Project utilizes the Spring Boot framework in order to manage it's API, post
     - Create car entries: ``http://minikube/create``
     - Edit existing car entries: ``http://minikube/edit``
     
-![Picture of application](/.github/images/UltraApp.png)
-![Picture of application](/.github/images/UltraAppShare.png)
+![Picture of application](/.github/images/UltraApp.png | width=100)
+![Picture of application](/.github/images/UltraAppShare.png | width=100)
     
 ## Usage Frontend (Flutter)
 - Step 1: Install prerequisites
