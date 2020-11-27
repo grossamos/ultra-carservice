@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:ultra_car_service_app/api_handling/api_service.dart';
 
 class RenderAdapterListDataTable {
@@ -34,7 +35,12 @@ class RenderAdapterListDataTable {
             return ExpansionPanel(
               headerBuilder: (BuildContext context, bool isExpanded) {
                 return ListTile(
-                  leading: Icon(Icons.directions_car),
+                  leading: IconButton(
+                      icon: Icon(Icons.directions_car),
+                    onPressed: (){
+                        Share.share("Hey, look at my cool car: http://$ApiService.ip_of_service/ultra-api/read-single?id=" +item.id.toString());
+                    },
+                  ),
                   title: Text(item.id.toString()),
                 );
               },
